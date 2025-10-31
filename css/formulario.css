@@ -74,4 +74,24 @@
     .botones input[type="reset"]:hover {
       background: rgb(50, 50, 50);
     }
-    
+    .btn-inicio {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      background: black;
+      color: rgb(250, 245, 245);
+      padding: 10px 20px;
+      text-decoration: none;
+      border-radius: 5px;
+      font-weight: bold;
+      font-size: 14px;
+      transition: background 0.3s ease;
+      box-shadow: 3px 3px 0px rgb(17, 17, 17);
+    }
+
+    .btn-inicio:hover {
+      background: rgb(50, 50, 50);
+      transform: translateY(-2px);
+      box-shadow: 5px 5px 0px rgb(17, 17, 17);
+    }
+        
