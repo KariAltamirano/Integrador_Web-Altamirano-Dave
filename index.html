@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Turismo en San Luis - Página Principal</title>
+    <link rel="stylesheet" href="css/carousel.css">
 </head>
 <body>
     <header>
@@ -16,7 +17,7 @@
                 <ul class="nav-menu">
                     <li><a href="index.html" class="nav-link active">Inicio</a></li>
                     <li><a href="articulo.html" class="nav-link">Destinos</a></li>
-                    <li><a href="contacto.html" class="nav-link">Contacto</a></li>
+                    <li><a href="/formulario.html" class="nav-link">Contacto</a></li>
                 </ul>
         </nav>
     </header>
@@ -30,25 +31,10 @@ Ya sea que busques relax, aventura, cultura o espiritualidad, San Luis te invita
                     Explora los paisajes únicos, la cultura auténtica y las aventuras inolvidables que ofrece la provincia de San Luis.</p>
         </section>
 
-        <!--Carrusel personalizado-->
-        <section class="carousel-section">
-            <h3><b>Galería de Imágenes</b></h3>
-            <div class="carousel-container">
-                <div class="carousel">
-                    <img id="imagen1" src="img/San Luis/Ciudad_de_San_Luis,_provincia_de_San_Luis,_Argentina.jpg" alt="Panorámica de San Luis" width="400"height="400">
-                    <img id="imagen2" src="img/San Luis/la catedral.jpg" alt="Iglesia Catedral"width="400"height="400">
-                    <img id="imagen3" src="img/San Luis/casa de gobierno.jpg" alt="Casa de Gobierno"width="400"height="400">
-                    <img id="imagen4" src="img/San Luis/vieja estación de trenes.jpg" alt="Vieja Estación de Trenes"width="400"height="400">
-                    <img id="imagen5" src="img/San Luis/HITO-DEL-BICENTENARIO.jpg" alt="Hito del HITO-DEL-BICENTENARIO"width="400"height="400">
-                </div>
-                    <button class="carousel-btn prev">‹</button>
-                    <button class="carousel-btn next">›</button>
-                </div>
-                <div class="carousel-indicators ">
-                    <pan id="carousel-counter">1/5</pan>
-                </div>
-            </div>
-        </section>
+        <!--Carrusel cargado desde componente externo-->
+        <div id="carousel-root" aria-live="polite">
+            <!-- El contenido del carrusel se carga dinámicamente desde components/carousel.html -->
+        </div>
               <section class="hero">
             <h4><b>Ciudad de San Luis: historia viva, cultura y vida urbana</b></h4>
                 <p>La capital provincial conserva el pulso de su pasado y la vitalidad de una ciudad moderna.<br>
@@ -89,6 +75,7 @@ Desde el mirador del Hito del Bicentenario, en el moderno complejo Terrazas del 
             </ul>
         </section>
     </main>
+        <script src="js/carousel.js" defer></script>
 </body>
 </html>
 

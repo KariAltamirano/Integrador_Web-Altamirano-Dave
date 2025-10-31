@@ -1,0 +1,21 @@
+/* Estilos básicos para el carrusel */
+.carousel-section { text-align: center; margin: 1.5rem 0; }
+.carousel-container { position: relative; width: 100%; max-width: 900px; margin: 0 auto; }
+.carousel { position: relative; overflow: hidden; height: 400px; }
+.carousel img.slide { width: 100%; height: 100%; object-fit: cover; display: none; }
+.carousel img.slide.active { display: block; }
+.carousel-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.4); color: #fff; border: none; padding: 0.5rem 0.9rem; font-size: 2rem; cursor: pointer; border-radius: 4px; }
+.carousel-btn.prev { left: 10px; }
+.carousel-btn.next { right: 10px; }
+.carousel-btn:hover { background: rgba(0,0,0,0.6); }
+.carousel-indicators { margin-top: 0.6rem; display: flex; justify-content: center; gap: 1rem; align-items: center; }
+#carousel-counter { font-weight: bold; }
+.dots { display:flex; gap:0.5rem; }
+.dots button { width:10px; height:10px; border-radius:50%; border:none; background:#ccc; cursor:pointer; }
+.dots button.active { background:#333; }
+
+/* Responsive */
+@media (max-width: 600px) {
+    .carousel { height: 260px; }
+    .carousel-btn { font-size: 1.4rem; padding: 0.3rem 0.6rem; }
+}
