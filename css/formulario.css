@@ -8,7 +8,7 @@
       background-size: cover; 
       background-repeat: no-repeat;
       background-position: center;
-      background-attachment: fixed;     /* Centra la imagen en el elemento */
+      background-attachment: fixed;     
         
     }
     h1 {
@@ -18,24 +18,27 @@
     .formulario {
       border: 3px solid black;
       border-radius: 12px;
-      padding: 5px;
-      width: 300px;
+      padding: 20px;
+      width: 400px;
       box-shadow: 6px 6px 0px rgb(17, 17, 17);
       
       
     }
     .formulario h2 {
       color: black;
-      font-size: 18px;
+      font-size: 22px;
       margin: 40px;
+      text-align: center;
     }
+
     label {
-      display: block;
+      display: block;   
       margin-top: 10px;
       font-weight: bold;
+      text-align:left ;
     }
     input, select, textarea {
-      width: 100%;
+      width: 90%;
       padding: 5px;
       margin-top: 4px;
       border-bottom: 1px solid blue;
@@ -45,18 +48,30 @@
       resize: vertical;
       height: 60px;
     }
-    .botones {
+      .botones {
       margin-top: 15px;
       display: flex;
       gap: 10px;
-      
-    } 
+      justify-content: center;
+    }
 
-    .botones input {
-
+    .botones button,
+    .botones input[type="submit"],
+    .botones input[type="reset"] {
       background: black;
       color: rgb(250, 245, 245);
       padding: 6px 12px;
+      border: none;  
       border-radius: 5px;
       cursor: pointer;
+      font-size: 14px;
+      font-weight: normal;
+      
     }
+
+    .botones button:hover,
+    .botones input[type="submit"]:hover,
+    .botones input[type="reset"]:hover {
+      background: rgb(50, 50, 50);
+    }
+    
