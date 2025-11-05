@@ -1,4 +1,4 @@
-// Carga el componente HTML del carrusel y lo inicializa
+/* Carga el componente HTML del carrusel y lo inicializa
 document.addEventListener('DOMContentLoaded', () => {
   const root = document.getElementById('carousel-root');
   if (!root) return;
@@ -77,3 +77,4 @@ function initCarousel(root) {
   show(index);
   startInterval();
 }
+*/

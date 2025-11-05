@@ -16,8 +16,8 @@
             </div>
                 <ul class="nav-menu">
                     <li><a href="index.html" class="nav-link active">Inicio</a></li>
-                    <li><a href="articulo.html" class="nav-link">Destinos</a></li>
-                    <li><a href="/formulario.html" class="nav-link">Contacto</a></li>
+                    <li><a href="articulo/articulo.html" class="nav-link">Destinos</a></li>
+                    <li><a href="formulario/formulario.html" class="nav-link">Contacto</a></li>
                 </ul>
         </nav>
     </header>
@@ -31,9 +31,26 @@ Ya sea que busques relax, aventura, cultura o espiritualidad, San Luis te invita
                     Explora los paisajes únicos, la cultura auténtica y las aventuras inolvidables que ofrece la provincia de San Luis.</p>
         </section>
 
-        <!--Carrusel cargado desde componente externo-->
+        <!--Carrusel -->
         <div id="carousel-root" aria-live="polite">
-            <!-- El contenido del carrusel se carga dinámicamente desde components/carousel.html -->
+            <section class="carousel-section">
+                <h3><b>Galería de Imágenes</b></h3>
+                <div class="carousel-container">
+                    <div class="carousel">
+                        <img class="slide active" src="img/San Luis/Ciudad_de_San_Luis,_provincia_de_San_Luis,_Argentina.jpg" alt="Panorámica de San Luis">
+                        <img class="slide" src="img/San Luis/la catedral.jpg" alt="Iglesia Catedral">
+                        <img class="slide" src="img/San Luis/casa de gobierno.jpg" alt="Casa de Gobierno">
+                        <img class="slide" src="img/San Luis/vieja estación de trenes.jpg" alt="Vieja Estación de Trenes">
+                        <img class="slide" src="img/San Luis/HITO-DEL-BICENTENARIO.jpg" alt="Hito del Bicentenario">
+                    </div>
+                    <button class="carousel-btn prev" aria-label="Anterior">‹</button>
+                    <button class="carousel-btn next" aria-label="Siguiente">›</button>
+                    <div class="carousel-indicators">
+                        <span id="carousel-counter">1/5</span>
+                        <div class="dots" aria-hidden="false"></div>
+                    </div>
+                </div>
+            </section>
         </div>
               <section class="hero">
             <h4><b>Ciudad de San Luis: historia viva, cultura y vida urbana</b></h4>
@@ -75,7 +92,74 @@ Desde el mirador del Hito del Bicentenario, en el moderno complejo Terrazas del 
             </ul>
         </section>
     </main>
-        <script src="js/carousel.js" defer></script>
-</body>
+        <script>
+            // Inicialización del carrusel
+            document.addEventListener('DOMContentLoaded', () => {
+                const root = document.getElementById('carousel-root');
+                if (!root) return;
+                initCarousel(root);
+            });
+
+            function initCarousel(root) {
+                const slides = root.querySelectorAll('.slide');
+                const prevBtn = root.querySelector('.carousel-btn.prev');
+                const nextBtn = root.querySelector('.carousel-btn.next');
+                const counter = root.querySelector('#carousel-counter');
+                const dotsContainer = root.querySelector('.dots');
+                if (!slides.length) return;
+
+                let index = 0;
+                const total = slides.length;
+                let interval = null;
+
+                // crear dots
+                for (let i = 0; i < total; i++) {
+                    const b = document.createElement('button');
+                    b.setAttribute('aria-label', `Ir a la imagen ${i+1}`);
+                    if (i === 0) b.classList.add('active');
+                    b.addEventListener('click', () => goTo(i));
+                    dotsContainer.appendChild(b);
+                }
+
+                const dots = dotsContainer.querySelectorAll('button');
+
+                function show(i) {
+                    slides.forEach(s => s.classList.remove('active'));
+                    dots.forEach(d => d.classList.remove('active'));
+                    slides[i].classList.add('active');
+                    dots[i].classList.add('active');
+                    counter.textContent = `${i+1}/${total}`;
+                }
+
+                function prev() { goTo((index - 1 + total) % total); }
+                function next() { goTo((index + 1) % total); }
+
+                function goTo(i) {
+                    index = i;
+                    show(index);
+                    resetInterval();
+                }
+
+                prevBtn && prevBtn.addEventListener('click', prev);
+                nextBtn && nextBtn.addEventListener('click', next);
+
+                function startInterval() {
+                    interval = setInterval(() => { next(); }, 4000);
+                }
+                function resetInterval() {
+                    if (interval) clearInterval(interval);
+                    startInterval();
+                }
+
+                // pausa al entrar con el mouse
+                root.addEventListener('mouseenter', () => { if (interval) clearInterval(interval); });
+                root.addEventListener('mouseleave', () => { resetInterval(); });
+
+                // iniciar
+                show(index);
+                startInterval();
+            }
+        </script>
+    </body>
 </html>
 
