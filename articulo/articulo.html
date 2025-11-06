@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Destinos - San Luis</title>
+    <link rel="stylesheet" href="articulo.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <h1>Turismo en San Luis</h1>
+            <ul class="nav-menu">
+                <li><a href="../index.html">Inicio</a></li>
+                <li><a href="articulo.html" class="active">Destinos</a></li>
+                <li><a href="../formulario/formulario.html">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h2>Destinos en San Luis</h2>
+
+        <!-- 3 columnas -->
+        <div class="destinos-grid tres-columnas">
+            <article class="destino-card">
+                <h3>Sierra de las Quijadas</h3>
+                <img src="articuloImagenes/parque-nacional-sierra.jpg" alt="Sierra de las Quijadas" class="destino-imagen">
+                <p>Parque con imponentes formaciones rocosas, senderos y fauna autóctona.</p>
+                <div class="horarios">
+                    <p><strong>Ubicación:</strong> 120 km al noroeste de San Luis</p>
+                    <p><strong>Horarios de salidas:</strong> Martes a domingo de 8:00 hs</p>
+                    <p><strong>Duración del tour:</strong> Aproximadamente 5 horas</p>
+                    <p><strong>Entrada:</strong> Gratuita </p>
+                </div>
+            </article>
+
+            <article class="destino-card">
+                <h3>Villa de Merlo</h3>
+                <img src="articuloImagenes/merlo.jpg" alt="Villa de Merlo" class="destino-imagen">
+                <p>Villa serrana con microclima ideal, paisajes verdes y miradores con vistas al valle.</p>
+                <div class="horarios">
+                    <p><strong>Ubicación:</strong> 196 km al norte de San Luis</p>
+                    <p><strong>Horarios de salidas:</strong> Jueves a domingo de 9:30 hs</p>
+                    <p><strong>Duración del tour:</strong> Día completo o a medida</p>
+                </div>
+            </article>
+
+            <article class="destino-card">
+                <h3>Dique La Florida</h3>
+                <img src="articuloImagenes/dique-florida.png" alt="Dique La Florida" class="destino-imagen">
+                <p>Embalse rodeado de montañas, perfecto para pescar, navegar y disfrutar la naturaleza.</p>
+                <div class="horarios">
+                    <p><strong>Ubicación:</strong> 46 km al noreste de San Luis</p>
+                    <p><strong>Horarios de salidas:</strong> Todos los días de 9:00 y 14:00 hs</p>
+                    <p><strong>Duración del tour:</strong> Aproximadamente 5 horas</p>
+                    
+                </div>
+            </article>
+        </div>
+
+        <!-- 3 columnas -->
+        <div class="destinos-grid tres-columnas">
+            <article class="destino-card">
+                <h3>San Luis Capital</h3>
+                <img src="articuloImagenes/San_Luis.jpg" alt="San Luis Capital" class="destino-imagen">
+                <p>Ciudad moderna con historia colonial, plazas, arte y cultura en el corazón puntano.</p>
+                <div class="horarios">
+                    <p><strong>Ubicación:</strong> Ciudad de San Luis capital</p>
+                    <p><strong>Horarios de salidas:</strong> Todos los días a las 9:00, 12:00 y 16:00 hs</p>
+                    <p><strong>Duración del tour:</strong> Aproximadamente 2:30 horas</p>
+                </div>
+            </article>
+
+            <article class="destino-card">
+                <h3>Potrero de los Funes</h3>
+                <img src="articuloImagenes/Potrero-de-los-Funes.jpg" alt="Potrero de los Funes" class="destino-imagen">
+                <p>Lago entre montañas, circuito automovilístico y hoteles con vistas espectaculares.</p>
+                <div class="horarios">
+                    <p><strong>Ubicación:</strong> 35 km al noreste de San Luis</p>
+                    <p><strong>Horarios de salidas:</strong> Lunes a domingo 10:00 hs</p>
+                    <p><strong>Duración del tour:</strong> Aproximadamente 4 horas</p>
+                </div>
+            </article>
+
+            <article class="destino-card">
+                <h3>La Carolina</h3>
+                <img src="articuloImagenes/la-carolina.jpg" alt="La Carolina" class="destino-imagen">
+                <p>Antiguo pueblo minero entre cerros, historia, minas y encanto de montaña pura.</p>
+                <div class="horarios">
+                    <p><strong>Ubicación:</strong> 89 km al norte de San Luis</p>
+                    <p><strong>Horarios de salidas:</strong> Viernes a domingo 7:00 hs</p>
+                    <p><strong>Duración del tour:</strong> Día completo</p>
+                </div>
+            </article>
+        </div>
+    </main>
+
+    <footer class="site-footer" role="contentinfo">
+        <div class="footer-container">
+            <!-- Identidad -->
+            <div class="footer-brand">
+                <h2>Turismo en San Luis</h2>
+                <p>
+                    Viví la esencia de San Luis. Turismo local, naturaleza y experiencias únicas
+                    en cada rincón serrano.
+                </p>
+            </div>
+
+            <!-- Contacto -->
+            <div class="footer-contact">
+                <h3>Contacto</h3>
+                <p>
+                    San Luis, Argentina<br>
+                    +54 9 266 541 3654<br>
+                    info@serranatrips.com<br>
+                    San Martín 569, San Luis<br>
+                    Lunes a Sábado | 9:00 - 18:00
+                </p>
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+            © 2025 Turismo en San Luis | Agencia habilitada por el Ministerio de Turismo de San Luis<br>
+            <span>Política de Privacidad · Términos y Condiciones</span>
+        </div>
+    </footer>
+
+    <script>
+        // Esperar a que la página cargue completamente
+        document.addEventListener('DOMContentLoaded', function() {
+            // Seleccionar todas las tarjetas de destinos
+            const tarjetas = document.querySelectorAll('.destino-card');
+            
+            // Recorrer cada tarjeta y agregar efectos
+            tarjetas.forEach(function(tarjeta) {
+                
+                // Cuando el mouse entra en la tarjeta
+                tarjeta.addEventListener('mouseenter', function() {
+                    // Mover la tarjeta hacia arriba
+                    tarjeta.style.transform = 'translateY(-8px)';
+                    // Aumentar la sombra
+                    tarjeta.style.boxShadow = '0 12px 24px rgba(0, 0, 0, 0.15)';
+                });
+                
+                // Cuando el mouse sale de la tarjeta
+                tarjeta.addEventListener('mouseleave', function() {
+                    // Volver la tarjeta a su posición original
+                    tarjeta.style.transform = 'translateY(0)';
+                    // Reducir la sombra
+                    tarjeta.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)';
+                });
+                
+            });
+        });
+    </script>
+</body>
+</html>
