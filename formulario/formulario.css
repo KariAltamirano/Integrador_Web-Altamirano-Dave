@@ -1,145 +1,297 @@
-    body {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      font-family: Arial, sans-serif;
-      background-color: rgb(36, 36, 158); 
-      background-image: url("/img/Logo/Fondo\ dos.png");
-      background-size: cover; 
-      background-repeat: no-repeat;
-      background-position: center;
-      background-attachment: fixed;     
-        
-    }
-    h1 {
-      font-size: 30px;
-      margin: 40px;
-    }
-    .formulario {
-      border: 3px solid black;
-      border-radius: 12px;
-      padding: 20px;
-      width: 400px;
-      box-shadow: 6px 6px 0px rgb(17, 17, 17);
-      
-      
-    }
-    .formulario h2 {
-      color: black;
-      font-size: 22px;
-      margin: 40px;
-      text-align: center;
-    }
-
-    label {
-      display: block;   
-      margin-top: 10px;
-      font-weight: bold;
-      text-align:left ;
-    }
-    input, select, textarea {
-      width: 90%;
-      padding: 5px;
-      margin-top: 4px;
-      border-bottom: 1px solid blue;
-      
-    }
-    textarea {
-      resize: vertical;
-      height: 60px;
-    }
-      .botones {
-      margin-top: 15px;
-      display: flex;
-      gap: 10px;
-      justify-content: center;
-    }
-
-    .botones button,
-    .botones input[type="submit"],
-    .botones input[type="reset"] {
-      background: black;
-      color: rgb(250, 245, 245);
-      padding: 6px 12px;
-      border: none;  
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 14px;
-      font-weight: normal;
-      
-    }
-
-    .botones button:hover,
-    .botones input[type="submit"]:hover,
-    .botones input[type="reset"]:hover {
-      background: rgb(50, 50, 50);
-    }
-    .btn-inicio {
-      position: absolute;
-      top: 20px;
-      left: 20px;
-      background: black;
-      color: rgb(250, 245, 245);
-      padding: 10px 20px;
-      text-decoration: none;
-      border-radius: 5px;
-      font-weight: bold;
-      font-size: 14px;
-      transition: background 0.3s ease;
-      box-shadow: 3px 3px 0px rgb(17, 17, 17);
-    }
-
-    .btn-inicio:hover {
-      background: rgb(50, 50, 50);
-      transform: translateY(-2px);
-      box-shadow: 5px 5px 0px rgb(17, 17, 17);
-/* Variables de colores */
+/* Paleta de colores */
 :root {
-  --azul: #2C5282;
-  --azul-claro: #4299E1;
+    --azul: #2C5282;
+    --azul-claro: #4299E1;
+    --naranja: #F6AD55;
+    --gris: #2D3748;
+    --fondo: #F7FAFC;
+    --rojo: #E53E3E;
+    --verde: #48BB78;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    color: var(--gris);
+    background-color: var(--fondo);
+}
+
+/* Navegación con flexbox */
+.navbar {
+    background-color: var(--azul);
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar h1 {
+    color: white;
+    font-size: 24px;
+}
+
+.nav-menu {
+    display: flex;
+    list-style: none;
+    gap: 20px;
+}
+
+.nav-menu a {
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.nav-menu a:hover,
+.nav-menu a.active {
+    background-color: var(--azul-claro);
+}
+
+/* Main */
+main {
+    padding: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+h2 {
+    text-align: center;
+    color: var(--azul);
+    margin: 30px 0;
+    font-size: 28px;
+}
+
+h3 {
+    color: var(--azul);
+    margin-bottom: 20px;
+}
+
+/* Estilos específicos para el formulario */
+.formulario {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 30px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.formulario:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+.form-group,
+.item {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--azul);
+    font-weight: 500;
+}
+
+input,
+textarea,
+select {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #CBD5E0;
+    border-radius: 5px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+    outline: none;
+    border-color: var(--azul-claro);
+    box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.2);
+}
+
+button,
+.botones button,
+.botones input[type="submit"],
+.botones input[type="reset"] {
+    background-color: var(--azul);
+    color: white;
+    padding: 12px 30px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+button:hover,
+.botones button:hover,
+.botones input[type="submit"]:hover,
+.botones input[type="reset"]:hover {
+    background-color: var(--azul-claro);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.botones {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.btn-inicio {
+    background-color: var(--azul);
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: 500;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    position: relative;
+    top: 20px;
+    left: 20px;
+}
+
+.btn-inicio:hover {
+    background-color: var(--azul-claro);
+    transform: translateY(-2px);
 }
 
 /* Footer */
 .site-footer {
-  background: var(--azul);
-  color: #ffffff;
-  padding: 20px 16px; 
-  margin-top: 24px;   
-  font-family: 'Roboto', sans-serif; 
+    background: var(--azul);
+    color: #ffffff;
+    padding: 20px 16px; 
+    margin-top: 24px;   
+    font-family: 'Roboto', sans-serif; 
 }
 
 .footer-container {
-  max-width: 1100px;
-  margin: 0 auto;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 16px; 
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 16px; 
 }
 
 .site-footer h2,
-.site-footer h3 { color: #ffffff; margin-bottom: 6px; }
-.site-footer h2 { font-size: 20px; }
-.site-footer h3 { font-size: 16px; }
-.site-footer p  { font-size: 0.9rem; }
+.site-footer h3 { 
+    color: #ffffff; 
+    margin-bottom: 6px; 
+}
 
-.social-links { display: flex; gap: 10px; margin-top: 6px; font-size: 1.1rem; }
-.social-links a { color: #ffffff; text-decoration: none; }
-.social-links a:hover { color: var(--azul-claro); }
+.site-footer h2 { 
+    font-size: 20px; 
+}
+
+.site-footer h3 { 
+    font-size: 16px; 
+}
+
+.site-footer p { 
+    font-size: 0.9rem; 
+}
+
+.social-links { 
+    display: flex; 
+    gap: 10px; 
+    margin-top: 6px; 
+    font-size: 1.1rem; 
+}
+
+.social-links a { 
+    color: #ffffff; 
+    text-decoration: none; 
+}
+
+.social-links a:hover { 
+    color: var(--azul-claro); 
+}
 
 .footer-bottom {
-  text-align: center;
-  margin-top: 16px;
-  border-top: 1px solid rgba(255, 255, 255, 0.25);
-  padding-top: 8px;
-  font-size: 0.75rem;
-  color: #ffffff;
+    text-align: center;
+    margin-top: 16px;
+    border-top: 1px solid rgba(255, 255, 255, 0.25);
+    padding-top: 8px;
+    font-size: 0.75rem;
+    color: #ffffff;
 }
 
-/* Footer responsive */
+/* Responsive */
 @media (max-width: 768px) {
-  .footer-container { flex-direction: column; }
-  .social-links { justify-content: center; }
-}
+    .navbar {
+        flex-direction: column;
+        gap: 15px;
     }
-        
+
+    .nav-menu {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+
+    main {
+        padding: 20px;
+    }
+
+    h2 {
+        font-size: 24px;
+    }
+
+    .formulario {
+        padding: 20px;
+    }
+
+    /* Footer responsive */
+    .footer-container { 
+        flex-direction: column; 
+    }
+    
+    .social-links { 
+        justify-content: center; 
+    }
+}
+
+@media (max-width: 480px) {
+    .navbar h1 {
+        font-size: 20px;
+    }
+
+    .nav-menu a {
+        padding: 8px 15px;
+        font-size: 14px;
+    }
+
+    h2 {
+        font-size: 20px;
+        margin: 20px 0;
+    }
+
+    .formulario {
+        padding: 15px;
+    }
+
+    .form-group,
+    .item {
+        margin-bottom: 15px;
+    }
+
+    button {
+        width: 100%;
+        padding: 12px;
+    }
+}
