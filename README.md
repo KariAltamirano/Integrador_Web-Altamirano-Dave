@@ -24,7 +24,7 @@ Proyecto integrador de desarrollo web que presenta un sitio completo para una ag
 - **Galería de destinos** con información detallada (ubicación, horarios, precios)
 - **Paleta de colores** consistente definida con variables CSS
 
-## 📂 Estructura del Proyecto
+## Estructura del Proyecto
 
 ```
 Integrador_Web-Altamirano-Dave/
