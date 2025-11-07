@@ -25,13 +25,13 @@ body {
 /* Navegación con flexbox */
 .navbar {
     background-color: var(--azul);
-    padding: 10px 12px 14px 12px; /* alineado con index */
+    padding: 10px 12px 14px 12px; 
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-/* Contenedor de marca para apilar título (y slogan si hiciera falta) */
+/* Contenedor de marca */
 .nav-brand {
     display: flex;
     flex-direction: column;
@@ -40,13 +40,13 @@ body {
 
 .navbar h1 {
     color: white;
-    font-size: 50px;          /* alineado con index */
+    font-size: 50px;          
     display:flex;
     align-items: center;
     gap: 10px;
 }
 .navbar img {
-    height: 120px;            /* sin borde circular, transparente como en index */
+    height: 120px;            
     width: auto;
     object-fit: contain;
     background: transparent;
@@ -160,20 +160,20 @@ h3 {
 }
 
 
-/* Sección de horarios */
-.horarios {
+/* Sección de información de destino */
+.info-destino {
     margin-top: 15px;
     padding-top: 15px;
     border-top: 2px solid var(--azul-claro);
 }
 
-.horarios p {
+.info-destino p {
     margin: 8px 0;
     font-size: 14px;
     line-height: 1.5;
 }
 
-.horarios strong {
+.info-destino strong {
     color: var(--azul);
     font-weight: 700;
 }
@@ -229,7 +229,7 @@ h3 {
     }
 
     .navbar img {
-        height: 70px; /* consistente con index en tablets */
+        height: 70px; 
     }
 
     .nav-menu {
@@ -267,7 +267,7 @@ h3 {
     }
 
     .navbar img {
-        height: 45px; /* consistente con index en móviles pequeños */
+        height: 45px; 
     }
 
     .nav-menu a {

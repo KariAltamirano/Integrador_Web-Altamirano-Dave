@@ -24,13 +24,13 @@ body {
 /* Navegación con flexbox */
 .navbar {
     background-color: var(--azul);
-    padding: 10px 12px 14px 12px; /* alineado con index */
+    padding: 10px 12px 14px 12px; 
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-/* Contenedor de marca para apilar título (y slogan si hiciera falta) */
+/* Contenedor de marca */
 .nav-brand {
     display: flex;
     flex-direction: column;
@@ -39,13 +39,13 @@ body {
 
 .navbar h1 {
     color: white;
-    font-size: 50px;          /* alineado con index */
+    font-size: 50px;          
     display:flex;
     align-items: center;
     gap: 10px;
 }
 .navbar img {
-    height: 120px;            /* sin borde circular, transparente como en index */
+    height: 120px;            
     width: auto;
     object-fit: contain;
     background: transparent;
@@ -89,7 +89,7 @@ h3 {
     margin-bottom: 20px;
 }
 
-/* Asterisco obligatorio dentro del label usando clase 'error' */
+/* Asterisco dentro del label usando clase 'error' */
 label .error {
     color: var(--rojo);
     display: inline;
@@ -98,7 +98,7 @@ label .error {
     line-height: inherit;
 }
 
-/* Estilos específicos para el formulario */
+/* Estilos específicos del formulario */
 .formulario {
     max-width: 700px;
     margin: 0 auto;
@@ -160,7 +160,6 @@ textarea {
     border-color: var(--rojo) !important;
 }
 
-.destinos-group,
 .destinos-grupo {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -186,7 +185,7 @@ textarea {
     font-weight: normal;
 }
 
-/* Estilo para marcar error en grupos (destinos) */
+/* Estilo para marcar error en destinos */
 .group-error {
     outline: 2px solid var(--rojo);
     border-radius: 6px;
@@ -238,7 +237,7 @@ button {
     transform: translateY(-2px);
 }
 
-.success-message,
+/* Mensajes de estado */
 .exito-message {
     background-color: var(--verde);
     color: white;
@@ -252,13 +251,11 @@ button {
     display: none;
 }
 
-.success-message.show,
 .exito-message.show {
     display: block;
     animation: slideDown 0.5s ease;
 }
 
-.cancel-message,
 .cancelar-message {
     background-color: var(--naranja);
     color: white;
@@ -272,7 +269,6 @@ button {
     display: none;
 }
 
-.cancel-message.show,
 .cancelar-message.show {
     display: block;
     animation: slideDown 0.5s ease;
@@ -287,6 +283,75 @@ button {
         opacity: 1;
         transform: translateY(0);
     }
+}
+
+/* Confirmación modal */
+.confirmar-cancelar {
+    position: fixed;
+    inset: 0;
+    background: rgba(45,55,72,0.55); 
+    display: none; 
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 16px;
+}
+
+.confirmar-cancelar.show {
+    display: flex;
+    animation: fadeIn 0.2s ease;
+}
+
+.confirmar-cancelar__content {
+    background: #ffffff;
+    color: var(--gris);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    max-width: 520px;
+    width: 100%;
+    padding: 24px;
+    text-align: center;
+}
+
+.confirmar-cancelar__content h4 {
+    color: var(--azul);
+    margin-bottom: 8px;
+    font-size: 20px;
+}
+
+.confirmar-cancelar__content p {
+    margin-bottom: 16px;
+    line-height: 1.5;
+}
+
+.confirmar-cancelar__actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.btn-confirmar {
+    background-color: var(--rojo);
+    color: #ffffff;
+}
+
+.btn-confirmar:hover {
+    background-color: #C53030;
+}
+
+.btn-secundario {
+    background-color: #A0AEC0;
+    color: #1A202C;
+}
+
+.btn-secundario:hover {
+    background-color: #CBD5E0;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
 /* Footer */
@@ -331,144 +396,14 @@ button {
         flex-direction: column;
         gap: 15px;
     }
-
-    .navbar img {
-        height: 70px; /* consistente con index en tablets */
-    }
-
-    .nav-menu {
-        flex-direction: column;
-        align-items: center;
-        gap: 10px;
-    }
-
-    main {
-        padding: 20px;
-    }
-
-    .formulario {
-        padding: 20px;
-    }
-
-    .destinos-group,
-    .destinos-grupo {
-        grid-template-columns: 1fr;
-    }
-
-    .botones {
-        flex-direction: column;
-    }
-
-    button {
-        width: 100%;
-    }
-
-    .footer-container { 
-        flex-direction: column; 
-    }
-}
-
 @media (max-width: 480px) {
-    .navbar h1 {
-        font-size: 20px;
-    }
-
-    .navbar img {
-        height: 45px; /* consistente con index en móviles pequeños */
-    }
-
-    .nav-menu a {
-        padding: 8px 15px;
-        font-size: 14px;
-    }
-
-    h2 {
-        font-size: 20px;
-        margin: 20px 0;
-    }
-
-    .formulario {
-        padding: 15px;
-    }
-
-    .item {
-        margin-bottom: 15px;
-    }
-
-    button {
-        width: 100%;
-        padding: 12px;
-    }
+    .navbar h1 { font-size: 20px; }
+    .navbar img { height: 45px; }
+    h2 { font-size: 20px; margin: 20px 0; }
+    .formulario { padding: 15px; }
+    .item { margin-bottom: 15px; }
+    button { width: 100%; padding: 12px; }
+    .confirmar-cancelar__content { padding: 20px; }
+    .confirmar-cancelar__content h4 { font-size: 18px; }
 }
-
-/* Confirmación custom (overlay) */
-.confirm-cancel,
-.confirmar-cancelar {
-    position: fixed;
-    inset: 0;
-    background: rgba(45, 55, 72, 0.55); /* gris con transparencia */
-    display: none; /* toggled con .show */
-    align-items: center;
-    justify-content: center;
-    z-index: 1000;
-    padding: 16px;
-}
-
-.confirm-cancel.show,
-.confirmar-cancelar.show {
-    display: flex;
-    animation: fadeIn 0.2s ease;
-}
-
-.confirm-cancel__content,
-.confirmar-cancelar__content {
-    background: #ffffff;
-    color: var(--gris);
-    border-radius: 10px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-    max-width: 520px;
-    width: 100%;
-    padding: 24px;
-    text-align: center;
-}
-
-.confirm-cancel__content h4,
-.confirmar-cancelar__content h4 {
-    color: var(--azul);
-    margin-bottom: 8px;
-}
-
-.confirm-cancel__content p,
-.confirmar-cancelar__content p {
-    margin-bottom: 16px;
-}
-
-.confirm-cancel__actions,
-.confirmar-cancelar__actions {
-    display: flex;
-    gap: 12px;
-    justify-content: center;
-}
-
-.btn-confirmar {
-    background-color: var(--rojo);
-    color: #ffffff;
-}
-
-.btn-confirmar:hover {
-    background-color: #C53030; /* rojo más oscuro */
-}
-
-.btn-secundario {
-    background-color: #A0AEC0; /* gris claro */
-    color: #1A202C;
-}
-
-.btn-secundario:hover {
-    background-color: #CBD5E0;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
 }

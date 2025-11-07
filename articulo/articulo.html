@@ -26,13 +26,13 @@
     <main>
         <h2>Destinos en San Luis</h2>
 
-        <!-- 3 columnas -->
+        <!-- 3 columnas para las cards -->
         <div class="destinos-grid tres-columnas">
             <article class="destino-card">
                 <h3>Sierra de las Quijadas</h3>
                 <img src="articuloImagenes/parque-nacional-sierra.jpg" alt="Sierra de las Quijadas" class="destino-imagen">
                 <p>Parque con imponentes formaciones rocosas, senderos y fauna autóctona.</p>
-                <div class="horarios">
+                <div class="info-destino">
                     <p><strong>Ubicación:</strong> 120 km al noroeste de San Luis</p>
                     <p><strong>Horarios de salidas:</strong> Martes a domingo de 8:00 hs</p>
                     <p><strong>Duración del tour:</strong> Aproximadamente 5 horas</p>
@@ -48,7 +48,7 @@
                 <h3>Villa de Merlo</h3>
                 <img src="articuloImagenes/merlo.jpg" alt="Villa de Merlo" class="destino-imagen">
                 <p>Villa serrana con microclima ideal, paisajes verdes y miradores con vistas al valle.</p>
-                <div class="horarios">
+                <div class="info-destino">
                     <p><strong>Ubicación:</strong> 196 km al norte de San Luis</p>
                     <p><strong>Horarios de salidas:</strong> Jueves a domingo de 9:30 hs</p>
                     <p><strong>Duración del tour:</strong> Día completo </p>
@@ -63,7 +63,7 @@
                 <h3>Dique La Florida</h3>
                 <img src="articuloImagenes/dique-florida.png" alt="Dique La Florida" class="destino-imagen">
                 <p>Embalse rodeado de montañas, perfecto para pescar, navegar y disfrutar la naturaleza.</p>
-                <div class="horarios">
+                <div class="info-destino">
                     <p><strong>Ubicación:</strong> 46 km al noreste de San Luis</p>
                     <p><strong>Horarios de salidas:</strong> Todos los días de 9:00 hs</p>
                     <p><strong>Duración del tour:</strong> Día completo</p>
@@ -75,13 +75,13 @@
             </article>
         </div>
 
-        <!-- 3 columnas -->
+        <!-- 3 columnas para las cards -->
         <div class="destinos-grid tres-columnas">
             <article class="destino-card">
                 <h3>San Luis Capital</h3>
                 <img src="articuloImagenes/San_Luis.jpg" alt="San Luis Capital" class="destino-imagen">
                 <p>Ciudad moderna con historia colonial, plazas, arte y cultura en el corazón puntano.</p>
-                <div class="horarios">
+                <div class="info-destino">
                     <p><strong>Ubicación:</strong> Ciudad de San Luis capital</p>
                     <p><strong>Horarios de salidas:</strong> Todos los días a las 9:00, 12:00 y 16:00 hs</p>
                     <p><strong>Duración del tour:</strong> Aproximadamente 2:30 horas</p>
@@ -96,7 +96,7 @@
                 <h3>Potrero de los Funes</h3>
                 <img src="articuloImagenes/Potrero-de-los-Funes.jpg" alt="Potrero de los Funes" class="destino-imagen">
                 <p>Lago entre montañas, circuito automovilístico y hoteles con vistas espectaculares.</p>
-                <div class="horarios">
+                <div class="info-destino">
                     <p><strong>Ubicación:</strong> 35 km al noreste de San Luis</p>
                     <p><strong>Horarios de salidas:</strong> Lunes a domingo 10:00 hs</p>
                     <p><strong>Duración del tour:</strong> Aproximadamente 4 horas</p>
@@ -111,7 +111,7 @@
                 <h3>La Carolina</h3>
                 <img src="articuloImagenes/la-carolina.jpg" alt="La Carolina" class="destino-imagen">
                 <p>Antiguo pueblo minero entre cerros, historia, minas y encanto de montaña pura.</p>
-                <div class="horarios">
+                <div class="info-destino">
                     <p><strong>Ubicación:</strong> 89 km al norte de San Luis</p>
                     <p><strong>Horarios de salidas:</strong> Viernes a domingo 7:00 hs</p>
                     <p><strong>Duración del tour:</strong> Día completo</p>
@@ -126,7 +126,7 @@
 
     <footer class="site-footer" role="contentinfo">
         <div class="footer-container">
-            <!-- Identidad -->
+            <!-- Marca -->
             <div class="footer-brand">
                 <h2>Serrana Trips</h2>
                 <p>
@@ -158,7 +158,7 @@
     <script>
         // Esperar a que la página cargue completamente
         document.addEventListener('DOMContentLoaded', function() {
-            // Seleccionar todas las tarjetas de destinos
+            // Selecciona las tarjetas de destinos
             const tarjetas = document.querySelectorAll('.destino-card');
             
             // Recorrer cada tarjeta y agregar efectos

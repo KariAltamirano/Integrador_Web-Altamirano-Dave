@@ -27,12 +27,12 @@
     <main>
         <h2>Formulario de Contacto</h2>
         
-        <div id="mensaje-exito" class="exito-message" aria-live="polite" role="status"></div>
-        <div id="mensaje-cancelar" class="cancelar-message" aria-live="polite" role="status"></div>
+    <div id="mensaje-exito" class="exito-message"></div>
+    <div id="mensaje-cancelar" class="cancelar-message"></div>
 
-        <!-- Confirmación custom para cancelar (sin pop-ups nativos) -->
-        <div id="confirmar-cancelar" class="confirmar-cancelar" role="dialog" aria-modal="true" aria-labelledby="confirmar-cancelar-titulo" aria-describedby="confirmar-cancelar-desc" hidden>
-            <div class="confirmar-cancelar__content" role="document">
+        <!-- Confirmación para cancelar -->
+        <div id="confirmar-cancelar" class="confirmar-cancelar" hidden>
+            <div class="confirmar-cancelar__content">
                 <h4 id="confirmar-cancelar-titulo">¿Querés cancelar el formulario?</h4>
                 <p id="confirmar-cancelar-desc">Se perderán los datos cargados hasta el momento.</p>
                 <div class="confirmar-cancelar__actions">
@@ -154,6 +154,36 @@
             charCount.textContent = this.value.length;
         });
 
+        // Limpieza de error en vivo: solo al vaciar el campo (sin validar)
+        function setupLiveValidation() {
+            const campos = ['nombre', 'apellido', 'telefono', 'email'];
+            
+            campos.forEach(function(id) {
+                const campo = document.getElementById(id);
+                if (!campo) return;
+                
+                campo.addEventListener('input', function() {
+                    if (campo.value.trim() === '') {
+                        const error = document.getElementById(id + '-error');
+                        if (error) error.textContent = '';
+                        campo.classList.remove('input-error');
+                    }
+                });
+            });
+            
+            const destinos = document.getElementById('destinos');
+            if (destinos) {
+                destinos.addEventListener('change', function() {
+                    const marcados = destinos.querySelectorAll('input[name="destinos"]:checked');
+                    if (marcados.length > 0) {
+                        const error = document.getElementById('destinos-error');
+                        if (error) error.textContent = '';
+                        destinos.classList.remove('group-error');
+                    }
+                });
+            }
+        }
+
         // Validación del formulario
         function validarForm() {
             limpiarErrores();
@@ -166,7 +196,7 @@
             
             let flagEnvio = true;
             
-            // Validar nombre (2-20 caracteres, solo letras y espacios)
+            // Validación nombre (2-20 caracteres, solo letras y espacios). Uso el regexNombre para nombre y apellido
             const regexNombre = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/;
             if (nombre === '') {
                 mostrarError('nombre', 'El nombre es requerido.');
@@ -182,7 +212,7 @@
                 flagEnvio = false;
             }
             
-            // Validar apellido (2-20 caracteres, solo letras y espacios)
+            // Validación apellido (2-20 caracteres, solo letras y espacios)
             if (apellido === '') {
                 mostrarError('apellido', 'El apellido es requerido.');
                 flagEnvio = false;
@@ -197,7 +227,7 @@
                 flagEnvio = false;
             }
             
-            // Validar teléfono (solo números, máximo 15 dígitos)
+            // Validación teléfono (solo números, entre 8 y 15 dígitos)
             const regexTelefono = /^[0-9]+$/;
             const telefonoLimpio = telefono.replace(/[\s-]/g, '');
             if (telefono === '') {
@@ -206,12 +236,15 @@
             } else if (!regexTelefono.test(telefonoLimpio)) {
                 mostrarError('telefono', 'El teléfono solo puede contener números.');
                 flagEnvio = false;
+            } else if (telefonoLimpio.length < 8) {
+                mostrarError('telefono', 'El teléfono debe tener al menos 8 dígitos.');
+                flagEnvio = false;
             } else if (telefonoLimpio.length > 15) {
                 mostrarError('telefono', 'El teléfono no puede tener más de 15 dígitos.');
                 flagEnvio = false;
             }
             
-            // Validar email
+            // Validación email
             const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (email === '') {
                 mostrarError('email', 'El correo electrónico es requerido.');
@@ -221,7 +254,7 @@
                 flagEnvio = false;
             }
             
-            // Validar al menos un destino
+            // Seleccionar al menos un destino
             const seleccionados = document.querySelectorAll('input[name="destinos"]:checked');
             if (seleccionados.length === 0) {
                 mostrarError('destinos', 'Seleccioná al menos un destino.');
@@ -321,12 +354,11 @@
         }
 
         function cancelarFormulario() {
-            // Mostrar confirmación custom, sin usar confirm() nativo
+            // confirmación custom, sin usar confirm() nativo
             const overlay = document.getElementById('confirmar-cancelar');
             overlay.removeAttribute('hidden');
             overlay.classList.add('show');
 
-            // Foco inicial accesible
             const btnConfirm = overlay.querySelector('.btn-confirmar');
             if (btnConfirm) btnConfirm.focus();
 
@@ -393,6 +425,9 @@
             overlay.classList.remove('show');
             overlay.setAttribute('hidden', '');
         }
+
+        // Inicializar validación en vivo
+        setupLiveValidation();
     </script>
 </body>
 </html>
