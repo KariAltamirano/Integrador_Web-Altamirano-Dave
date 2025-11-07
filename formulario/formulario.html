@@ -4,59 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulario</title>
-    <link rel="stylesheet" href="/formulario/formulario.css"> 
-    <style>
-        .error {
-            color: #E53E3E;
-            font-size: 14px;
-            display: block;
-            margin-top: 5px;
-        }
-        
-        .input-error {
-            border-color: #E53E3E !important;
-        }
-        
-        .success-message {
-            background-color: #48BB78;
-            color: white;
-            padding: 15px;
-            border-radius: 5px;
-            text-align: center;
-            margin: 20px auto;
-            max-width: 600px;
-            font-weight: 500;
-        }
-        
-        .item {
-            margin-bottom: 20px;
-        }
-        
-        .item.row {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .item.row input[type="checkbox"] {
-            width: auto;
-        }
-        
-        .item.row label {
-            margin-bottom: 0;
-        }
-        
-        .center {
-            text-align: center;
-        }
-    </style>
+    <link rel="stylesheet" href="formulario.css">
 </head>
 <body>
     <header>
         <nav class="navbar">
-            <h1>
-                <img src="/img/Logo/Logo Serrana trips.png" alt="Logo de la página" width="100" height="100">
-                Serrana Trips</h1>
+            <h1>Turismo en San Luis</h1>
             <ul class="nav-menu">
                 <li><a href="../index.html">Inicio</a></li>
                 <li><a href="../articulo/articulo.html">Destinos</a></li>
@@ -68,138 +21,100 @@
     <main>
         <h2>Formulario de Contacto</h2>
         
-        <form action="" novalidate onsubmit="return validarFormulario(event)">
+        <div id="mensaje-exito" class="exito-message" aria-live="polite" role="status"></div>
+        <div id="mensaje-cancelar" class="cancelar-message" aria-live="polite" role="status"></div>
+
+        <!-- Confirmación custom para cancelar (sin pop-ups nativos) -->
+        <div id="confirmar-cancelar" class="confirmar-cancelar" role="dialog" aria-modal="true" aria-labelledby="confirmar-cancelar-titulo" aria-describedby="confirmar-cancelar-desc" hidden>
+            <div class="confirmar-cancelar__content" role="document">
+                <h4 id="confirmar-cancelar-titulo">¿Querés cancelar el formulario?</h4>
+                <p id="confirmar-cancelar-desc">Se perderán los datos cargados hasta el momento.</p>
+                <div class="confirmar-cancelar__actions">
+                    <button type="button" class="btn-confirmar" onclick="confirmarCancelacion()">Sí, cancelar</button>
+                    <button type="button" class="btn-secundario" onclick="cerrarConfirmacion()">No, volver</button>
+                </div>
+            </div>
+        </div>
+
+        <form id="formulario-contacto" action="" name="registroForm" onsubmit="return validarForm()" novalidate>
             <div class="formulario">
-                <h3>Mis Datos</h3>    
+                <h3>Datos Personales</h3>    
 
                 <div class="item"> 
-                    <label for="nombre">Nombre:</label>
+                    <label for="nombre">Nombre: <span class="error">*</span></label>
                     <input type="text" id="nombre" name="nombre" required>
                     <span id="nombre-error" class="error"></span>
                 </div>
                 
                 <div class="item">
-                    <label for="apellido">Apellido:</label>
+                    <label for="apellido">Apellido: <span class="error">*</span></label>
                     <input type="text" id="apellido" name="apellido" required> 
                     <span id="apellido-error" class="error"></span>
                 </div>
 
                 <div class="item">
-                    <label for="telefono">Teléfono:</label>
+                    <label for="telefono">Teléfono: <span class="error">*</span></label>
                     <input type="tel" id="telefono" name="telefono" required> 
                     <span id="telefono-error" class="error"></span>
                 </div>
 
                 <div class="item">
-                    <label for="email">Email:</label>
+                    <label for="email">Email: <span class="error">*</span></label>
                     <input type="email" id="email" name="email" required> 
                     <span id="email-error" class="error"></span>
                 </div>
-                             
-               
-                <div class="item row">
-                    <input type="checkbox" id="terms" name="terms" required>
-                    <label for="terms">Acepto términos y condiciones</label>
-                    <span id="terms-error" class="error"></span>
+
+                <div class="item">
+                    <label>Destinos de Interés:</label>
+                    <div class="destinos-grupo" id="destinos">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="quijadas" name="destinos" value="Sierra de las Quijadas">
+                            <label for="quijadas">Sierra de las Quijadas</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="merlo" name="destinos" value="Villa de Merlo">
+                            <label for="merlo">Villa de Merlo</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="dique" name="destinos" value="Dique La Florida">
+                            <label for="dique">Dique La Florida</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="capital" name="destinos" value="San Luis Capital">
+                            <label for="capital">San Luis Capital</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="potrero" name="destinos" value="Potrero de los Funes">
+                            <label for="potrero">Potrero de los Funes</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="carolina" name="destinos" value="La Carolina">
+                            <label for="carolina">La Carolina</label>
+                        </div>
+                    </div>
+                    <span id="destinos-error" class="error"></span>
                 </div>
-               
-                <div class="center">
-                    <button type="submit">Registrarse</button>
+
+                <div class="item">
+                    <label for="comentarios">Comentarios / Consultas:</label>
+                    <textarea id="comentarios" name="comentarios" maxlength="500" placeholder="Escriba aquí sus comentarios o consultas (máximo 500 caracteres)"></textarea>
+                    <div class="char-counter">
+                        <span id="char-count">0</span> / 500 caracteres
+                    </div>
+                </div>
+
+                <div class="botones">
+                    <button type="button" class="btn-cancelar" onclick="cancelarFormulario()">Cancelar</button>
+                    <button type="submit" class="btn-enviar">Enviar</button>
                 </div>
             </div>
         </form>
     </main>
 
-    <script>
-        function validarFormulario(event) {
-            event.preventDefault();
-            
-            limpiarErrores();
-            
-            const nombre = document.getElementById('nombre').value.trim();
-            const apellido = document.getElementById('apellido').value.trim();
-            const telefono = document.getElementById('telefono').value.trim();
-            const email = document.getElementById('email').value.trim();
-            const password = document.getElementById('password').value;
-            const confirmPassword = document.getElementById('confirm-password').value;
-            const terms = document.getElementById('terms').checked;
-            
-            let esValido = true;
-            
-            // 1.- Validar nombre (requerido, mínimo 2 caracteres)
-            if (nombre === '') {
-                mostrarError('nombre', 'El nombre es requerido.');
-                esValido = false;
-            } else if (nombre.length < 2) {
-                mostrarError('nombre', 'El nombre debe tener al menos 2 caracteres.');
-                esValido = false;
-            }
-            
-            // 2.- Validar apellido (requerido, mínimo 2 caracteres)
-            if (apellido === '') {
-                mostrarError('apellido', 'El apellido es requerido.');
-                esValido = false;
-            } else if (apellido.length < 2) {
-                mostrarError('apellido', 'El apellido debe tener al menos 2 caracteres.');
-                esValido = false;
-            }
-            
-            // 3.- Validar teléfono (requerido, solo números y mínimo 8 dígitos)
-            const regexTelefono = /^[0-9]{8,}$/;
-            if (telefono === '') {
-                mostrarError('telefono', 'El teléfono es requerido.');
-                esValido = false;
-            } else if (!regexTelefono.test(telefono.replace(/[\s-]/g, ''))) {
-                mostrarError('telefono', 'El teléfono debe tener al menos 8 dígitos.');
-                esValido = false;
-            }
-            
-            // 4.- Validar correo electrónico (requerido, formato válido)
-            const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (email === '') {
-                mostrarError('email', 'El correo electrónico es requerido.');
-                esValido = false;
-            } else if (!regexEmail.test(email)) {
-                mostrarError('email', 'El correo electrónico no tiene un formato válido.');
-                esValido = false;
-            }
-            //faltan validaciones
-            
-
-            
-            return false;
-        }
-        
-        function mostrarError(campo, mensaje) {
-            const errorSpan = document.getElementById(campo + '-error');
-            const input = document.getElementById(campo);
-            
-            errorSpan.textContent = mensaje;
-            input.classList.add('input-error');
-        }
-        
-        function limpiarErrores() {
-            const errores = document.querySelectorAll('.error');
-            errores.forEach(error => error.textContent = '');
-            
-            const inputs = document.querySelectorAll('input');
-            inputs.forEach(input => input.classList.remove('input-error'));
-            
-            const mensajeExito = document.querySelector('.success-message');
-            if (mensajeExito) {
-                mensajeExito.remove();
-            }
-        }
-       // FALTA MENSAJE DE EXITO 
-
-       
-        
-    </script>
-
     <footer class="site-footer" role="contentinfo">
         <div class="footer-container">
             <div class="footer-brand">
-                <h2>Serrana Trips</h2>
+                <h2>Turismo en San Luis</h2>
                 <p>
                     Viví la esencia de San Luis. Turismo local, naturaleza y experiencias únicas
                     en cada rincón serrano.
@@ -223,5 +138,255 @@
             <span>Política de Privacidad · Términos y Condiciones</span>
         </div>
     </footer>
+
+    <script>
+        // Contador de caracteres para el textarea
+        const comentarios = document.getElementById('comentarios');
+        const charCount = document.getElementById('char-count');
+
+        comentarios.addEventListener('input', function() {
+            charCount.textContent = this.value.length;
+        });
+
+        // Validación del formulario
+        function validarForm() {
+            limpiarErrores();
+            limpiarMensajes();
+            
+            const nombre = document.getElementById('nombre').value.trim();
+            const apellido = document.getElementById('apellido').value.trim();
+            const telefono = document.getElementById('telefono').value.trim();
+            const email = document.getElementById('email').value.trim();
+            
+            let flagEnvio = true;
+            
+            // Validar nombre (2-20 caracteres, solo letras y espacios)
+            const regexNombre = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/;
+            if (nombre === '') {
+                mostrarError('nombre', 'El nombre es requerido.');
+                flagEnvio = false;
+            } else if (nombre.length < 2) {
+                mostrarError('nombre', 'El nombre debe tener al menos 2 caracteres.');
+                flagEnvio = false;
+            } else if (nombre.length > 20) {
+                mostrarError('nombre', 'El nombre no puede tener más de 20 caracteres.');
+                flagEnvio = false;
+            } else if (!regexNombre.test(nombre)) {
+                mostrarError('nombre', 'El nombre solo puede contener letras.');
+                flagEnvio = false;
+            }
+            
+            // Validar apellido (2-20 caracteres, solo letras y espacios)
+            if (apellido === '') {
+                mostrarError('apellido', 'El apellido es requerido.');
+                flagEnvio = false;
+            } else if (apellido.length < 2) {
+                mostrarError('apellido', 'El apellido debe tener al menos 2 caracteres.');
+                flagEnvio = false;
+            } else if (apellido.length > 20) {
+                mostrarError('apellido', 'El apellido no puede tener más de 20 caracteres.');
+                flagEnvio = false;
+            } else if (!regexNombre.test(apellido)) {
+                mostrarError('apellido', 'El apellido solo puede contener letras.');
+                flagEnvio = false;
+            }
+            
+            // Validar teléfono (solo números, máximo 15 dígitos)
+            const regexTelefono = /^[0-9]+$/;
+            const telefonoLimpio = telefono.replace(/[\s-]/g, '');
+            if (telefono === '') {
+                mostrarError('telefono', 'El teléfono es requerido.');
+                flagEnvio = false;
+            } else if (!regexTelefono.test(telefonoLimpio)) {
+                mostrarError('telefono', 'El teléfono solo puede contener números.');
+                flagEnvio = false;
+            } else if (telefonoLimpio.length > 15) {
+                mostrarError('telefono', 'El teléfono no puede tener más de 15 dígitos.');
+                flagEnvio = false;
+            }
+            
+            // Validar email
+            const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (email === '') {
+                mostrarError('email', 'El correo electrónico es requerido.');
+                flagEnvio = false;
+            } else if (!regexEmail.test(email)) {
+                mostrarError('email', 'El correo electrónico no tiene un formato válido.');
+                flagEnvio = false;
+            }
+            
+            // Validar al menos un destino
+            const seleccionados = document.querySelectorAll('input[name="destinos"]:checked');
+            if (seleccionados.length === 0) {
+                mostrarError('destinos', 'Seleccioná al menos un destino.');
+                flagEnvio = false;
+            }
+
+            // Mensaje de éxito
+            if (flagEnvio) {
+                generarMensajeExito(nombre, apellido, email);
+                
+                // Limpiar formulario
+                document.getElementById('nombre').value = '';
+                document.getElementById('apellido').value = '';
+                document.getElementById('telefono').value = '';
+                document.getElementById('email').value = '';
+                document.getElementById('comentarios').value = '';
+                charCount.textContent = '0';
+                
+                // Desmarcar checkboxes
+                const checkboxes = document.querySelectorAll('input[name="destinos"]');
+                checkboxes.forEach(cb => cb.checked = false);
+                
+                // Limpiar bordes de error
+                const inputs = document.querySelectorAll('input[type="text"], input[type="tel"], input[type="email"]');
+                inputs.forEach(input => input.style.borderColor = '');
+            }
+            
+            return false;
+        }
+        
+        function generarMensajeExito(nombre, apellido, email) {
+            const contenedorMensaje = document.getElementById('mensaje-exito');
+            
+            // Obtener destinos seleccionados
+            const checkboxes = document.querySelectorAll('input[name="destinos"]:checked');
+            let destinosTexto = '';
+            
+            if (checkboxes.length > 0) {
+                const destinosArray = Array.from(checkboxes).map(cb => cb.value);
+                if (destinosArray.length === 1) {
+                    destinosTexto = ' para el destino <strong>' + destinosArray[0] + '</strong>';
+                } else if (destinosArray.length === 2) {
+                    destinosTexto = ' para los destinos <strong>' + destinosArray[0] + '</strong> y <strong>' + destinosArray[1] + '</strong>';
+                } else {
+                    const ultimo = destinosArray.pop();
+                    destinosTexto = ' para los destinos <strong>' + destinosArray.join('</strong>, <strong>') + '</strong> y <strong>' + ultimo + '</strong>';
+                }
+            }
+            
+            contenedorMensaje.innerHTML = 'Consulta de <strong>' + nombre + ' ' + apellido + '</strong> con email <strong>' + email + '</strong>' + destinosTexto + ' enviada con éxito! En breve nos contactaremos con usted.';
+            contenedorMensaje.classList.add('show');
+            
+            // Scroll hacia el mensaje
+            contenedorMensaje.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            
+            // Ocultar mensaje después de 10 segundos
+            setTimeout(() => {
+                contenedorMensaje.classList.remove('show');
+            }, 10000);
+        }
+        
+        function mostrarError(campo, mensaje) {
+            const errorSpan = document.getElementById(campo + '-error');
+            if (errorSpan) errorSpan.textContent = mensaje;
+
+            const campoEl = document.getElementById(campo);
+            if (campoEl) {
+                // Si es un input, resaltarlo; si es un contenedor (destinos), marcar grupo
+                if (campoEl.tagName === 'INPUT' || campoEl.tagName === 'TEXTAREA') {
+                    campoEl.classList.add('input-error');
+                } else {
+                    campoEl.classList.add('group-error');
+                }
+            }
+        }
+        
+        function limpiarErrores() {
+            // Limpiar solo spans de mensajes (no asteriscos en labels)
+            const errores = document.querySelectorAll('[id$="-error"].error');
+            errores.forEach(error => error.textContent = '');
+
+            // Quitar estilos de error de inputs
+            const inputs = document.querySelectorAll('input[type="text"], input[type="tel"], input[type="email"], textarea');
+            inputs.forEach(input => input.classList.remove('input-error'));
+
+            // Quitar posible error de grupo (destinos)
+            const grupoDestinos = document.getElementById('destinos');
+            if (grupoDestinos) grupoDestinos.classList.remove('group-error');
+        }
+        
+        function limpiarMensajes() {
+            const mensajeExito = document.getElementById('mensaje-exito');
+            const mensajeCancelar = document.getElementById('mensaje-cancelar');
+            
+            mensajeExito.classList.remove('show');
+            mensajeCancelar.classList.remove('show');
+        }
+
+        function cancelarFormulario() {
+            // Mostrar confirmación custom, sin usar confirm() nativo
+            const overlay = document.getElementById('confirmar-cancelar');
+            overlay.removeAttribute('hidden');
+            overlay.classList.add('show');
+
+            // Foco inicial accesible
+            const btnConfirm = overlay.querySelector('.btn-confirmar');
+            if (btnConfirm) btnConfirm.focus();
+
+            // Cerrar con ESC o clic en fondo
+            function handleKey(e) {
+                if (e.key === 'Escape') {
+                    cerrarConfirmacion();
+                }
+            }
+            function handleBackdrop(e) {
+                if (e.target === overlay) {
+                    cerrarConfirmacion();
+                }
+            }
+            overlay.addEventListener('click', handleBackdrop, { once: true });
+            document.addEventListener('keydown', handleKey, { once: true });
+        }
+
+        function confirmarCancelacion() {
+            // Ocultar confirmación
+            cerrarConfirmacion();
+
+            // Limpiar estados previos y mensajes
+            limpiarErrores();
+            limpiarMensajes();
+
+            const nombre = document.getElementById('nombre').value.trim();
+            const apellido = document.getElementById('apellido').value.trim();
+
+            // Limpiar formulario
+            document.getElementById('nombre').value = '';
+            document.getElementById('apellido').value = '';
+            document.getElementById('telefono').value = '';
+            document.getElementById('email').value = '';
+            document.getElementById('comentarios').value = '';
+            charCount.textContent = '0';
+
+            // Desmarcar checkboxes
+            const checkboxes = document.querySelectorAll('input[name="destinos"]');
+            checkboxes.forEach(cb => cb.checked = false);
+
+            // Mostrar mensaje de cancelación en pantalla (similar a éxito)
+            const mensajeCancelar = document.getElementById('mensaje-cancelar');
+            mensajeCancelar.innerHTML = (nombre || apellido)
+                ? 'Formulario de <strong>' + nombre + ' ' + apellido + '</strong> cancelado. Todos los datos han sido eliminados.'
+                : 'Formulario cancelado. Todos los datos han sido eliminados.';
+            mensajeCancelar.classList.add('show');
+
+            // Asegurar que el mensaje de éxito no quede visible
+            const mensajeExito = document.getElementById('mensaje-exito');
+            mensajeExito.classList.remove('show');
+
+            // Scroll al mensaje
+            mensajeCancelar.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+            // Ocultar automáticamente después de 6 segundos
+            setTimeout(() => {
+                mensajeCancelar.classList.remove('show');
+            }, 6000);
+        }
+
+        function cerrarConfirmacion() {
+            const overlay = document.getElementById('confirmar-cancelar');
+            overlay.classList.remove('show');
+            overlay.setAttribute('hidden', '');
+        }
+    </script>
 </body>
 </html>

@@ -73,9 +73,18 @@ h3 {
     margin-bottom: 20px;
 }
 
+/* Asterisco obligatorio dentro del label usando clase 'error' */
+label .error {
+    color: var(--rojo);
+    display: inline;
+    margin: 0;
+    font-size: inherit;
+    line-height: inherit;
+}
+
 /* Estilos específicos para el formulario */
 .formulario {
-    max-width: 600px;
+    max-width: 700px;
     margin: 0 auto;
     padding: 30px;
     background-color: white;
@@ -88,7 +97,6 @@ h3 {
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
 }
 
-.form-group,
 .item {
     margin-bottom: 20px;
 }
@@ -100,9 +108,10 @@ label {
     font-weight: 500;
 }
 
-input,
-textarea,
-select {
+input[type="text"],
+input[type="tel"],
+input[type="email"],
+textarea {
     width: 100%;
     padding: 12px;
     border: 2px solid #CBD5E0;
@@ -113,20 +122,77 @@ select {
 }
 
 input:focus,
-textarea:focus,
-select:focus {
+textarea:focus {
     outline: none;
     border-color: var(--azul-claro);
     box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.2);
 }
 
-button,
-.botones button,
-.botones input[type="submit"],
-.botones input[type="reset"] {
-    background-color: var(--azul);
-    color: white;
-    padding: 12px 30px;
+textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.error {
+    color: var(--rojo);
+    font-size: 14px;
+    display: block;
+    margin-top: 5px;
+}
+
+.input-error {
+    border-color: var(--rojo) !important;
+}
+
+.destinos-group,
+.destinos-grupo {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+    margin-top: 10px;
+}
+
+.checkbox-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.checkbox-item input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+.checkbox-item label {
+    margin-bottom: 0;
+    cursor: pointer;
+    font-weight: normal;
+}
+
+/* Estilo para marcar error en grupos (destinos) */
+.group-error {
+    outline: 2px solid var(--rojo);
+    border-radius: 6px;
+    padding: 8px;
+}
+
+.char-counter {
+    text-align: right;
+    font-size: 12px;
+    color: var(--gris);
+    margin-top: 5px;
+}
+
+.botones {
+    margin-top: 30px;
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+}
+
+button {
+    padding: 12px 40px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -135,39 +201,76 @@ button,
     transition: all 0.3s ease;
 }
 
-button:hover,
-.botones button:hover,
-.botones input[type="submit"]:hover,
-.botones input[type="reset"]:hover {
+.btn-enviar {
+    background-color: var(--azul);
+    color: white;
+}
+
+.btn-enviar:hover {
     background-color: var(--azul-claro);
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
-.botones {
-    margin-top: 20px;
-    display: flex;
-    gap: 10px;
-    justify-content: center;
-}
-
-.btn-inicio {
-    background-color: var(--azul);
+.btn-cancelar {
+    background-color: var(--gris);
     color: white;
-    padding: 10px 20px;
-    text-decoration: none;
-    border-radius: 5px;
-    font-weight: 500;
-    font-size: 16px;
-    transition: all 0.3s ease;
-    position: relative;
-    top: 20px;
-    left: 20px;
 }
 
-.btn-inicio:hover {
-    background-color: var(--azul-claro);
+.btn-cancelar:hover {
+    background-color: #4A5568;
     transform: translateY(-2px);
+}
+
+.success-message,
+.exito-message {
+    background-color: var(--verde);
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    margin: 20px auto;
+    max-width: 700px;
+    font-weight: 500;
+    line-height: 1.6;
+    display: none;
+}
+
+.success-message.show,
+.exito-message.show {
+    display: block;
+    animation: slideDown 0.5s ease;
+}
+
+.cancel-message,
+.cancelar-message {
+    background-color: var(--naranja);
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    margin: 20px auto;
+    max-width: 700px;
+    font-weight: 500;
+    line-height: 1.6;
+    display: none;
+}
+
+.cancel-message.show,
+.cancelar-message.show {
+    display: block;
+    animation: slideDown 0.5s ease;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* Footer */
@@ -175,7 +278,7 @@ button:hover,
     background: var(--azul);
     color: #ffffff;
     padding: 20px 16px; 
-    margin-top: 24px;   
+    margin-top: 40px;   
     font-family: 'Roboto', sans-serif; 
 }
 
@@ -206,22 +309,6 @@ button:hover,
     font-size: 0.9rem; 
 }
 
-.social-links { 
-    display: flex; 
-    gap: 10px; 
-    margin-top: 6px; 
-    font-size: 1.1rem; 
-}
-
-.social-links a { 
-    color: #ffffff; 
-    text-decoration: none; 
-}
-
-.social-links a:hover { 
-    color: var(--azul-claro); 
-}
-
 .footer-bottom {
     text-align: center;
     margin-top: 16px;
@@ -248,21 +335,25 @@ button:hover,
         padding: 20px;
     }
 
-    h2 {
-        font-size: 24px;
-    }
-
     .formulario {
         padding: 20px;
     }
 
-    /* Footer responsive */
+    .destinos-group,
+    .destinos-grupo {
+        grid-template-columns: 1fr;
+    }
+
+    .botones {
+        flex-direction: column;
+    }
+
+    button {
+        width: 100%;
+    }
+
     .footer-container { 
         flex-direction: column; 
-    }
-    
-    .social-links { 
-        justify-content: center; 
     }
 }
 
@@ -285,7 +376,6 @@ button:hover,
         padding: 15px;
     }
 
-    .form-group,
     .item {
         margin-bottom: 15px;
     }
@@ -294,4 +384,76 @@ button:hover,
         width: 100%;
         padding: 12px;
     }
+}
+
+/* Confirmación custom (overlay) */
+.confirm-cancel,
+.confirmar-cancelar {
+    position: fixed;
+    inset: 0;
+    background: rgba(45, 55, 72, 0.55); /* gris con transparencia */
+    display: none; /* toggled con .show */
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 16px;
+}
+
+.confirm-cancel.show,
+.confirmar-cancelar.show {
+    display: flex;
+    animation: fadeIn 0.2s ease;
+}
+
+.confirm-cancel__content,
+.confirmar-cancelar__content {
+    background: #ffffff;
+    color: var(--gris);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    max-width: 520px;
+    width: 100%;
+    padding: 24px;
+    text-align: center;
+}
+
+.confirm-cancel__content h4,
+.confirmar-cancelar__content h4 {
+    color: var(--azul);
+    margin-bottom: 8px;
+}
+
+.confirm-cancel__content p,
+.confirmar-cancelar__content p {
+    margin-bottom: 16px;
+}
+
+.confirm-cancel__actions,
+.confirmar-cancelar__actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+}
+
+.btn-confirmar {
+    background-color: var(--rojo);
+    color: #ffffff;
+}
+
+.btn-confirmar:hover {
+    background-color: #C53030; /* rojo más oscuro */
+}
+
+.btn-secundario {
+    background-color: #A0AEC0; /* gris claro */
+    color: #1A202C;
+}
+
+.btn-secundario:hover {
+    background-color: #CBD5E0;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
