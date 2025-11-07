@@ -224,6 +224,7 @@ h3 {
 .presentacion p {
     line-height: 1.6;
     margin-bottom: 20px;
+    
 }
 /* Bloque Quiénes Somos con fondo celeste grisáceo suave */
 .presentacion-quienesomos {
@@ -239,7 +240,7 @@ h3 {
 }
 
 .presentacion-quienesomos p {
-    text-align: left;
+    text-align: justify
 }
 
 .presentacion-quienesomos h3 {
@@ -297,6 +298,7 @@ h3 {
     font-size: 15px;
     line-height: 1.6;
     color: var(--gris);
+    text-align: justify;
 }
 
 /* Bloque Movilidad con fondo verde muy suave */
@@ -339,16 +341,37 @@ h3 {
 
 .servicio-item h4, .movilidad-item h4 {
     color: var(--verde);
-    margin-bottom: 10px;
+    margin-bottom: 20px;
+    padding-top: 20px;
     font-size: 18px;
 }
 
 .servicio-item p, .movilidad-item p {
-    line-height: 1.6;
+    line-height: 2.0;
     color: var(--gris);
-    text-align: left;
+    text-align: justify;
+    margin-top: 20px;
+    margin-bottom: auto;
+    padding-top: auto;
+    
 }
-
+.img-movilidad-item {
+   flex: 1;
+    min-width: 280px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.movilidad-imagen {
+  width: 100%;
+    height: 100%;
+    object-fit:contain;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+    background: white;
+    padding: 8px;
+}
+    
 /* Bloque Descuentos con fondo naranja muy suave */
 .presentacion-descuentos {
     background: #FFF3E0; /* naranja/amarillo muy claro */
@@ -396,7 +419,7 @@ h3 {
 .beneficio-item p, .beneficios-item p {
     line-height: 1.6;
     color: var(--gris);
-    text-align: left;
+    text-align: justify;
 }
 
 .cta-text {
