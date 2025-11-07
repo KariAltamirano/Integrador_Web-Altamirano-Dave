@@ -24,29 +24,31 @@ body {
 /* Navegación con flexbox */
 .navbar {
     background-color: var(--azul);
-    padding: 20px;
+    padding: 10px 12px 14px 12px; /* alineado con index */
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
+/* Contenedor de marca para apilar título (y slogan si hiciera falta) */
+.nav-brand {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
 .navbar h1 {
     color: white;
-    font-size: 34px;
+    font-size: 50px;          /* alineado con index */
     display:flex;
     align-items: center;
     gap: 10px;
-    
-
 }
 .navbar img {
-    height: 100px;
-    width: 100px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 4px solid var(--azul);
-    margin: 0 auto 20px;
-
+    height: 120px;            /* sin borde circular, transparente como en index */
+    width: auto;
+    object-fit: contain;
+    background: transparent;
 }
 
 .nav-menu {
@@ -291,14 +293,15 @@ button {
 .site-footer {
     background: var(--azul);
     color: #ffffff;
-    padding: 20px 16px; 
-    margin-top: 40px;   
+    padding: 20px 20px; 
+    margin-top: 20px;  
     font-family: 'Roboto', sans-serif; 
 }
 
 .footer-container {
     max-width: 1100px;
-    margin: 0 auto;
+    max-height: fit-content;
+    margin:  2px auto;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -310,18 +313,8 @@ button {
     color: #ffffff; 
     margin-bottom: 6px; 
 }
-
-.site-footer h2 { 
-    font-size: 20px; 
-}
-
-.site-footer h3 { 
-    font-size: 16px; 
-}
-
-.site-footer p { 
-    font-size: 0.9rem; 
-}
+.site-footer h2 { font-size: 30px; }
+.site-footer p  { font-size: 14px; }
 
 .footer-bottom {
     text-align: center;
@@ -337,6 +330,10 @@ button {
     .navbar {
         flex-direction: column;
         gap: 15px;
+    }
+
+    .navbar img {
+        height: 70px; /* consistente con index en tablets */
     }
 
     .nav-menu {
@@ -374,6 +371,10 @@ button {
 @media (max-width: 480px) {
     .navbar h1 {
         font-size: 20px;
+    }
+
+    .navbar img {
+        height: 45px; /* consistente con index en móviles pequeños */
     }
 
     .nav-menu a {
