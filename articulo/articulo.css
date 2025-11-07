@@ -125,6 +125,24 @@ h3 {
     line-height: 1.6;
     color: var(--gris);
 }
+.destino-card .reservar-btn {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 10px 20px;
+    align-self:center;
+    background-color: var(--azul);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+.destino-card .reservar-btn:hover {
+    background-color: var(--azul-claro);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
 
 /* Sección de horarios */
 .horarios {
