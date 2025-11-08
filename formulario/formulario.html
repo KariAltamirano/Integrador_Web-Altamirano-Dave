@@ -42,31 +42,31 @@
             </div>
         </div>
 
-        <form id="formulario-contacto" action="" name="registroForm" onsubmit="return validarForm()" novalidate>
+    <form id="formulario-contacto" action="" name="registroForm" onsubmit="return validarForm()" novalidate autocomplete="off">
             <div class="formulario">
                 <h3>Datos Personales</h3>    
 
                 <div class="item"> 
                     <label for="nombre">Nombre: <span class="error">*</span></label>
-                    <input type="text" id="nombre" name="nombre" required>
+                    <input type="text" id="nombre" name="nombre" required autocomplete="off">
                     <span id="nombre-error" class="error"></span>
                 </div>
                 
                 <div class="item">
                     <label for="apellido">Apellido: <span class="error">*</span></label>
-                    <input type="text" id="apellido" name="apellido" required> 
+                    <input type="text" id="apellido" name="apellido" required autocomplete="off"> 
                     <span id="apellido-error" class="error"></span>
                 </div>
 
                 <div class="item">
                     <label for="telefono">Teléfono: <span class="error">*</span></label>
-                    <input type="tel" id="telefono" name="telefono" required> 
+                    <input type="tel" id="telefono" name="telefono" required autocomplete="off"> 
                     <span id="telefono-error" class="error"></span>
                 </div>
 
                 <div class="item">
                     <label for="email">Email: <span class="error">*</span></label>
-                    <input type="email" id="email" name="email" required> 
+                    <input type="email" id="email" name="email" required autocomplete="off"> 
                     <span id="email-error" class="error"></span>
                 </div>
 
@@ -103,7 +103,7 @@
 
                 <div class="item">
                     <label for="comentarios"><b>Comentarios / Consultas:</b> </label>
-                    <textarea id="comentarios" name="comentarios" maxlength="500" placeholder="Escriba aquí sus comentarios o consultas (máximo 500 caracteres)"></textarea>
+                    <textarea id="comentarios" name="comentarios" maxlength="500" placeholder="Escriba aquí sus comentarios o consultas (máximo 500 caracteres)" autocomplete="off"></textarea>
                     <div class="char-counter">
                         <span id="char-count">0</span> / 500 caracteres
                     </div>
@@ -146,15 +146,18 @@
     </footer>
 
     <script>
-        // Contador de caracteres para el textarea
-        const comentarios = document.getElementById('comentarios');
-        const charCount = document.getElementById('char-count');
+    // Duración unificada para mensajes de éxito y cancelación
+    const DURACION_MENSAJE_MS = 14000;
 
+    // Contador de caracteres para el textarea
+    const comentarios = document.getElementById('comentarios');
+    const charCount = document.getElementById('char-count');
+    
         comentarios.addEventListener('input', function() {
             charCount.textContent = this.value.length;
         });
 
-        // Limpieza de error en vivo: al empezar a editar el campo
+        // Limpieza de error al empezar a editar los campos
         function setupLiveValidation() {
             const campos = ['nombre', 'apellido', 'telefono', 'email'];
             
@@ -163,7 +166,7 @@
                 if (!campo) return;
                 
                 campo.addEventListener('input', function() {
-                    // Limpiar error al editar (sin importar si está vacío o no)
+                    // Limpiar error al editar 
                     const error = document.getElementById(id + '-error');
                     if (error) error.textContent = '';
                     campo.classList.remove('input-error');
@@ -187,13 +190,14 @@
                 });
             }
             
-            const comentarios = document.getElementById('comentarios');
-            if (comentarios) {
-                comentarios.addEventListener('input', function() {
+            const comentariosEl = document.getElementById('comentarios');
+            if (comentariosEl) {
+                comentariosEl.addEventListener('input', function() {
                     verificarBotonCancelar();
                 });
             }
         }
+
 
         // Verifica si hay datos en el formulario para habilitar/deshabilitar el botón cancelar
         function verificarBotonCancelar() {
@@ -312,31 +316,13 @@
             // Mensaje de éxito
             if (flagEnvio) {
                 generarMensajeExito(nombre, apellido, email);
-                
-                // Limpiar formulario
-                document.getElementById('nombre').value = '';
-                document.getElementById('apellido').value = '';
-                document.getElementById('telefono').value = '';
-                document.getElementById('email').value = '';
-                document.getElementById('comentarios').value = '';
-                charCount.textContent = '0';
-                
-                // Desmarcar checkboxes
-                const checkboxes = document.querySelectorAll('input[name="destinos"]');
-                checkboxes.forEach(cb => cb.checked = false);
-                
-                // Deshabilitar botones
-                verificarBotonCancelar();
-                verificarBotonEnviar();
-                
-                // Limpiar bordes de error
-                const inputs = document.querySelectorAll('input[type="text"], input[type="tel"], input[type="email"]');
-                inputs.forEach(input => input.style.borderColor = '');
+                limpiarFormulario();
             }
             
             return false;
         }
         
+        // Genera el mensaje de éxito con los datos ingresados
         function generarMensajeExito(nombre, apellido, email) {
             const contenedorMensaje = document.getElementById('mensaje-exito');
             
@@ -362,12 +348,13 @@
             // Scroll hacia el mensaje
             contenedorMensaje.scrollIntoView({ behavior: 'smooth', block: 'center' });
             
-            // Ocultar mensaje después de 14 segundos (extensión de visibilidad)
+            // Ocultar mensaje después del tiempo configurado
             setTimeout(() => {
                 contenedorMensaje.classList.remove('show');
-            }, 14000);
+            }, DURACION_MENSAJE_MS);
         }
         
+        // Muestra el mensaje de error dejabo del campo
         function mostrarError(campo, mensaje) {
             const errorSpan = document.getElementById(campo + '-error');
             if (errorSpan) errorSpan.textContent = mensaje;
@@ -383,6 +370,7 @@
             }
         }
         
+        // Limpia todos los mensajes de error del formulario
         function limpiarErrores() {
             // Limpiar solo spans de mensajes de error
             const errores = document.querySelectorAll('[id$="-error"].error');
@@ -395,6 +383,31 @@
             // Quitar posible error de destinos
             const grupoDestinos = document.getElementById('destinos');
             if (grupoDestinos) grupoDestinos.classList.remove('group-error');
+        }
+        
+        // Limpia todos los campos del formulario y sincroniza botones
+        function limpiarFormulario() {
+            // Limpiar valores
+            document.getElementById('nombre').value = '';
+            document.getElementById('apellido').value = '';
+            document.getElementById('telefono').value = '';
+            document.getElementById('email').value = '';
+            document.getElementById('comentarios').value = '';
+            charCount.textContent = '0';
+
+            // Desmarcar checkboxes
+            const checkboxes = document.querySelectorAll('input[name="destinos"]');
+            checkboxes.forEach(cb => cb.checked = false);
+
+            // Quitar estilos de error
+            const inputs = document.querySelectorAll('input[type="text"], input[type="tel"], input[type="email"], textarea');
+            inputs.forEach(input => input.classList.remove('input-error'));
+            const grupoDestinos = document.getElementById('destinos');
+            if (grupoDestinos) grupoDestinos.classList.remove('group-error');
+
+            // Sincronizar botones
+            verificarBotonCancelar();
+            verificarBotonEnviar();
         }
         
         function limpiarMensajes() {
@@ -429,6 +442,7 @@
             document.addEventListener('keydown', handleKey, { once: true });
         }
 
+        // Confirma la cancelación y limpia el formulario
         function confirmarCancelacion() {
             // Ocultar confirmación
             cerrarConfirmacion();
@@ -441,20 +455,7 @@
             const apellido = document.getElementById('apellido').value.trim();
 
             // Limpiar formulario
-            document.getElementById('nombre').value = '';
-            document.getElementById('apellido').value = '';
-            document.getElementById('telefono').value = '';
-            document.getElementById('email').value = '';
-            document.getElementById('comentarios').value = '';
-            charCount.textContent = '0';
-
-            // Desmarcar checkboxes
-            const checkboxes = document.querySelectorAll('input[name="destinos"]');
-            checkboxes.forEach(cb => cb.checked = false);
-
-            // Deshabilitar botones
-            verificarBotonCancelar();
-            verificarBotonEnviar();
+            limpiarFormulario();
 
             // Mostrar mensaje de cancelación en pantalla 
             const mensajeCancelar = document.getElementById('mensaje-cancelar');
@@ -470,12 +471,13 @@
             // Scroll al mensaje
             mensajeCancelar.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
-            // Ocultar automáticamente después de 14 segundos 
+            // Ocultar automáticamente después del tiempo configurado
             setTimeout(() => {
                 mensajeCancelar.classList.remove('show');
-            }, 14000);
+            }, DURACION_MENSAJE_MS);
         }
 
+        // Cierra la confirmación de cancelación
         function cerrarConfirmacion() {
             const overlay = document.getElementById('confirmar-cancelar');
             overlay.classList.remove('show');
@@ -484,6 +486,9 @@
 
         // Inicializar validación en vivo
         setupLiveValidation();
+        // Sincronizar estado de botones al cargar (por si el navegador autocompleta)
+        verificarBotonCancelar();
+        verificarBotonEnviar();
     </script>
 </body>
 </html>
