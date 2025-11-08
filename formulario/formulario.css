@@ -217,24 +217,55 @@ button {
 }
 
 .btn-enviar {
-    background-color: var(--azul);
+    background-color: var(--verde);
     color: white;
 }
 
 .btn-enviar:hover {
-    background-color: var(--azul-claro);
+    background-color: #38A169;
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
+.btn-enviar:disabled {
+    background-color: #A0AEC0;
+    color: #E2E8F0;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+    transition: none;
+}
+
+.btn-enviar:disabled:hover {
+    background-color: #A0AEC0;
+    transform: none;
+    box-shadow: none;
+}
+
 .btn-cancelar {
-    background-color: var(--gris);
+    background-color: var(--rojo);
     color: white;
 }
 
 .btn-cancelar:hover {
-    background-color: #4A5568;
+    background-color: #C53030;
     transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.btn-cancelar:disabled {
+    background-color: #A0AEC0;
+    color: #E2E8F0;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+    transition: none;
+}
+
+.btn-cancelar:disabled:hover {
+    background-color: #A0AEC0;
+    transform: none;
+    box-shadow: none;
 }
 
 /* Mensajes de estado */

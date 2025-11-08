@@ -110,8 +110,8 @@
                 </div>
 
                 <div class="botones">
-                    <button type="button" class="btn-cancelar" onclick="cancelarFormulario()">Cancelar</button>
-                    <button type="submit" class="btn-enviar">Enviar</button>
+                    <button type="button" id="btn-cancelar" class="btn-cancelar" onclick="cancelarFormulario()" disabled>Cancelar</button>
+                    <button type="submit" id="btn-enviar" class="btn-enviar" disabled>Enviar</button>
                 </div>
             </div>
         </form>
@@ -154,7 +154,7 @@
             charCount.textContent = this.value.length;
         });
 
-        // Limpieza de error en vivo: solo al vaciar el campo (sin validar)
+        // Limpieza de error en vivo: al empezar a editar el campo
         function setupLiveValidation() {
             const campos = ['nombre', 'apellido', 'telefono', 'email'];
             
@@ -163,11 +163,13 @@
                 if (!campo) return;
                 
                 campo.addEventListener('input', function() {
-                    if (campo.value.trim() === '') {
-                        const error = document.getElementById(id + '-error');
-                        if (error) error.textContent = '';
-                        campo.classList.remove('input-error');
-                    }
+                    // Limpiar error al editar (sin importar si está vacío o no)
+                    const error = document.getElementById(id + '-error');
+                    if (error) error.textContent = '';
+                    campo.classList.remove('input-error');
+                    
+                    verificarBotonCancelar();
+                    verificarBotonEnviar();
                 });
             });
             
@@ -180,8 +182,54 @@
                         if (error) error.textContent = '';
                         destinos.classList.remove('group-error');
                     }
+                    verificarBotonCancelar();
+                    verificarBotonEnviar();
                 });
             }
+            
+            const comentarios = document.getElementById('comentarios');
+            if (comentarios) {
+                comentarios.addEventListener('input', function() {
+                    verificarBotonCancelar();
+                });
+            }
+        }
+
+        // Verifica si hay datos en el formulario para habilitar/deshabilitar el botón cancelar
+        function verificarBotonCancelar() {
+            const btnCancelar = document.getElementById('btn-cancelar');
+            if (!btnCancelar) return;
+            
+            const nombre = document.getElementById('nombre').value.trim();
+            const apellido = document.getElementById('apellido').value.trim();
+            const telefono = document.getElementById('telefono').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const comentarios = document.getElementById('comentarios').value.trim();
+            const destinosMarcados = document.querySelectorAll('input[name="destinos"]:checked');
+            
+            const hayDatos = nombre !== '' || apellido !== '' || telefono !== '' || 
+                             email !== '' || comentarios !== '' || destinosMarcados.length > 0;
+            
+            btnCancelar.disabled = !hayDatos;
+        }
+
+        // Verifica si todos los campos obligatorios tienen algún valor para habilitar el botón enviar
+        function verificarBotonEnviar() {
+            const btnEnviar = document.getElementById('btn-enviar');
+            if (!btnEnviar) return;
+            
+            const nombre = document.getElementById('nombre').value.trim();
+            const apellido = document.getElementById('apellido').value.trim();
+            const telefono = document.getElementById('telefono').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const destinosMarcados = document.querySelectorAll('input[name="destinos"]:checked');
+            
+            // Todos los campos obligatorios deben tener algún valor
+            const camposObligatoriosCompletos = nombre !== '' && apellido !== '' && 
+                                                telefono !== '' && email !== '' && 
+                                                destinosMarcados.length > 0;
+            
+            btnEnviar.disabled = !camposObligatoriosCompletos;
         }
 
         // Validación del formulario
@@ -277,6 +325,10 @@
                 const checkboxes = document.querySelectorAll('input[name="destinos"]');
                 checkboxes.forEach(cb => cb.checked = false);
                 
+                // Deshabilitar botones
+                verificarBotonCancelar();
+                verificarBotonEnviar();
+                
                 // Limpiar bordes de error
                 const inputs = document.querySelectorAll('input[type="text"], input[type="tel"], input[type="email"]');
                 inputs.forEach(input => input.style.borderColor = '');
@@ -310,10 +362,10 @@
             // Scroll hacia el mensaje
             contenedorMensaje.scrollIntoView({ behavior: 'smooth', block: 'center' });
             
-            // Ocultar mensaje después de 10 segundos
+            // Ocultar mensaje después de 14 segundos (extensión de visibilidad)
             setTimeout(() => {
                 contenedorMensaje.classList.remove('show');
-            }, 10000);
+            }, 14000);
         }
         
         function mostrarError(campo, mensaje) {
@@ -332,7 +384,7 @@
         }
         
         function limpiarErrores() {
-            // Limpiar solo spans de mensajes (no asteriscos en labels)
+            // Limpiar solo spans de mensajes de error
             const errores = document.querySelectorAll('[id$="-error"].error');
             errores.forEach(error => error.textContent = '');
 
@@ -340,7 +392,7 @@
             const inputs = document.querySelectorAll('input[type="text"], input[type="tel"], input[type="email"], textarea');
             inputs.forEach(input => input.classList.remove('input-error'));
 
-            // Quitar posible error de grupo (destinos)
+            // Quitar posible error de destinos
             const grupoDestinos = document.getElementById('destinos');
             if (grupoDestinos) grupoDestinos.classList.remove('group-error');
         }
@@ -400,7 +452,11 @@
             const checkboxes = document.querySelectorAll('input[name="destinos"]');
             checkboxes.forEach(cb => cb.checked = false);
 
-            // Mostrar mensaje de cancelación en pantalla (similar a éxito)
+            // Deshabilitar botones
+            verificarBotonCancelar();
+            verificarBotonEnviar();
+
+            // Mostrar mensaje de cancelación en pantalla 
             const mensajeCancelar = document.getElementById('mensaje-cancelar');
             mensajeCancelar.innerHTML = (nombre || apellido)
                 ? 'Formulario de <strong>' + nombre + ' ' + apellido + '</strong> cancelado. Todos los datos han sido eliminados.'
@@ -414,10 +470,10 @@
             // Scroll al mensaje
             mensajeCancelar.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
-            // Ocultar automáticamente después de 6 segundos
+            // Ocultar automáticamente después de 14 segundos 
             setTimeout(() => {
                 mensajeCancelar.classList.remove('show');
-            }, 6000);
+            }, 14000);
         }
 
         function cerrarConfirmacion() {

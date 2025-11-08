@@ -105,6 +105,11 @@ Formulario con validaciones:
 - Validación del lado del cliente con JavaScript
 - Mensajes de error específicos para cada campo
 - Limpieza automática de errores al vaciar campos
+- Botones con estados habilitado/deshabilitado:
+  - **Botón Cancelar**: Solo habilitado cuando hay datos en el formulario
+  - **Botón Enviar**: Solo habilitado cuando todos los campos obligatorios tienen algún valor
+  - Estados visuales diferenciados (gris deshabilitado, rojo/verde habilitado)
+  - Ambos botones se deshabilitan automáticamente después de enviar o cancelar
 - Modal de confirmación personalizado para cancelar
 - Mensaje de éxito detallado al enviar
 
