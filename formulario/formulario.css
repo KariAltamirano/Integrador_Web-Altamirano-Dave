@@ -385,6 +385,100 @@ button {
     to { opacity: 1; }
 }
 
+/* Bloque de datos enviados (creado con createElement) */
+.datos-enviados {
+    background: #C6F6D5; 
+    color: #1A202C; 
+    padding: 20px;
+    border-radius: 10px;
+    margin: 20px auto;
+    max-width: 700px;
+    border: 1px solid #9AE6B4;
+    animation: none;
+    position: relative;
+}
+
+.datos-enviados h3 {
+    text-align: left;
+    font-size: 20px;
+    margin: 0 0 12px 0;
+    font-weight: 600;
+}
+
+.datos-enviados p {
+    font-size: 15px;
+    margin: 6px 0;
+    line-height: 1.5;
+}
+
+
+/* Mensaje de cancelación (creado con createElement) */
+.mensaje-cancelacion {
+    background: #FED7D7; 
+    color: #1A202C; 
+    padding: 20px;
+    border-radius: 10px;
+    margin: 20px auto;
+    max-width: 700px;
+    text-align: left;
+    border: 1px solid #FEB2B2;
+    animation: none;
+    position: relative;
+}
+
+/* Se elimina el icono visible en la cancelación */
+.icono-cancelacion { display: none; }
+
+.mensaje-cancelacion h3 {
+    font-size: 20px;
+    margin: 0 0 8px 0;
+    font-weight: 600;
+}
+
+.mensaje-cancelacion p {
+    font-size: 15px;
+    margin: 0;
+}
+
+
+/* Lista de datos enviados */
+.lista-datos-enviados {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+}
+
+.lista-datos-enviados li {
+    margin: 4px 0;
+}
+
+/* Botón de cierre para mensajes dinámicos */
+.close-mensaje {
+    position: absolute;
+    top: 8px;
+    right: 10px;
+    background: transparent;
+    border: none;
+    font-size: 24px;
+    line-height: 1;
+    cursor: pointer;
+    color: #2D3748;
+    padding: 4px 8px;
+    border-radius: 6px;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.close-mensaje:hover,
+.close-mensaje:focus {
+    background: rgba(0,0,0,0.08);
+    color: #1A202C;
+    outline: none;
+}
+
+.close-mensaje:active {
+    background: rgba(0,0,0,0.15);
+}
+
 /* Footer */
 .site-footer {
     background: var(--azul);
@@ -427,6 +521,14 @@ button {
         flex-direction: column;
         gap: 15px;
     }
+
+    .datos-enviados,
+    .mensaje-cancelacion {
+        padding: 20px;
+        margin: 20px 15px;
+    }
+}
+
 @media (max-width: 480px) {
     .navbar h1 { font-size: 20px; }
     .navbar img { height: 45px; }
@@ -436,5 +538,20 @@ button {
     button { width: 100%; padding: 12px; }
     .confirmar-cancelar__content { padding: 20px; }
     .confirmar-cancelar__content h4 { font-size: 18px; }
-}
+
+    .datos-enviados h3 {
+        font-size: 20px;
+    }
+
+    .datos-enviados p {
+        font-size: 14px;
+    }
+
+    .icono-cancelacion {
+        font-size: 32px;
+    }
+
+    .mensaje-cancelacion h3 {
+        font-size: 18px;
+    }
 }

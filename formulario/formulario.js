@@ -1,5 +1,3 @@
-// Duración unificada para mensajes de éxito y cancelación
-    const DURACION_MENSAJE_MS = 14000;
 
     // Contador de caracteres para el textarea
     const comentarios = document.getElementById('comentarios');
@@ -167,43 +165,72 @@
 
             // Mensaje de éxito
             if (flagEnvio) {
-                generarMensajeExito(nombre, apellido, email);
+                mostrarDatosFormulario(nombre, apellido, telefono, email);
                 limpiarFormulario();
             }
             
             return false;
         }
         
-        // Genera el mensaje de éxito con los datos ingresados
-        function generarMensajeExito(nombre, apellido, email) {
-            const contenedorMensaje = document.getElementById('mensaje-exito');
-            
-            // Obtener destinos seleccionados
-            const checkboxes = document.querySelectorAll('input[name="destinos"]:checked');
-            let destinosTexto = '';
-            
-            if (checkboxes.length > 0) {
-                const destinosArray = Array.from(checkboxes).map(cb => cb.value);
-                if (destinosArray.length === 1) {
-                    destinosTexto = ' para el destino <strong>' + destinosArray[0] + '</strong>';
-                } else if (destinosArray.length === 2) {
-                    destinosTexto = ' para los destinos <strong>' + destinosArray[0] + '</strong> y <strong>' + destinosArray[1] + '</strong>';
-                } else {
-                    const ultimo = destinosArray.pop();
-                    destinosTexto = ' para los destinos <strong>' + destinosArray.join('</strong>, <strong>') + '</strong> y <strong>' + ultimo + '</strong>';
-                }
+        // Muestra los datos básicos del formulario usando createElement
+        function mostrarDatosFormulario(nombre, apellido, telefono, email) {
+            // Limpiar contenedor previo si existe
+            const contenedorPrevio = document.getElementById('datos-enviados');
+            if (contenedorPrevio) {
+                contenedorPrevio.remove();
             }
-            
-            contenedorMensaje.innerHTML = 'Consulta de <strong>' + nombre + ' ' + apellido + '</strong> con email <strong>' + email + '</strong>' + destinosTexto + ' enviada con éxito! En breve nos contactaremos con usted.';
-            contenedorMensaje.classList.add('show');
-            
-            // Scroll hacia el mensaje
-            contenedorMensaje.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            
-            // Ocultar mensaje después del tiempo configurado
-            setTimeout(() => {
-                contenedorMensaje.classList.remove('show');
-            }, DURACION_MENSAJE_MS);
+
+            // Crear contenedor principal
+            const contenedor = document.createElement('div');
+            contenedor.id = 'datos-enviados';
+            contenedor.className = 'datos-enviados';
+
+            // Botón de cerrar X para cerrar el mensaje
+            const btnCerrar = document.createElement('button');
+            btnCerrar.type = 'button';
+            btnCerrar.className = 'close-mensaje';
+            btnCerrar.innerHTML = '&times;';
+            btnCerrar.addEventListener('click', () => {
+                if (contenedor.parentNode) contenedor.remove();
+            });
+            contenedor.appendChild(btnCerrar);
+
+            // Título
+            const titulo = document.createElement('h3');
+            titulo.textContent = 'Resumen de datos Enviados';
+            contenedor.appendChild(titulo);
+
+            // Construir una lista con los datos
+            const listaDatos = document.createElement('ul');
+            listaDatos.className = 'lista-datos-enviados';
+
+            const destinosSeleccionados = Array.from(document.querySelectorAll('input[name="destinos"]:checked')).map(cb => cb.value).join(', ');
+            const comentariosValor = document.getElementById('comentarios').value.trim();
+
+            listaDatos.innerHTML = `
+                <li><strong>Nombre:</strong> ${nombre}</li>
+                <li><strong>Apellido:</strong> ${apellido}</li>
+                <li><strong>Teléfono:</strong> ${telefono}</li>
+                <li><strong>Email:</strong> ${email}</li>
+                <li><strong>Destinos:</strong> ${destinosSeleccionados}</li>
+                <li><strong>Comentarios:</strong> ${comentariosValor || 'Sin comentarios'}</li>
+            `;
+
+            contenedor.appendChild(listaDatos);
+
+            // Insertar al final del contenedor del formulario 
+            const bloqueFormulario = document.querySelector('#formulario-contacto .formulario');
+            if (bloqueFormulario) {
+                bloqueFormulario.appendChild(contenedor);
+            } else {
+                // Insertar después del formulario
+                const formulario = document.getElementById('formulario-contacto');
+                formulario.parentNode.insertBefore(contenedor, formulario.nextSibling);
+            }
+
+            // Scroll hacia el contenedor
+            contenedor.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
         }
         
         // Muestra el mensaje de error dejabo del campo
@@ -213,7 +240,7 @@
 
             const campoEl = document.getElementById(campo);
             if (campoEl) {
-                // Si es un input, resaltarlo; si es un contenedor (destinos), marcar grupo
+                // Si es un input, se resalta; si es un contenedor, se marca el grupo
                 if (campoEl.tagName === 'INPUT' || campoEl.tagName === 'TEXTAREA') {
                     campoEl.classList.add('input-error');
                 } else {
@@ -262,16 +289,17 @@
             verificarBotonEnviar();
         }
         
+        // Limpia los mensajes creados dinámicamente
         function limpiarMensajes() {
-            const mensajeExito = document.getElementById('mensaje-exito');
-            const mensajeCancelar = document.getElementById('mensaje-cancelar');
-            
-            mensajeExito.classList.remove('show');
-            mensajeCancelar.classList.remove('show');
+            const datosEnviados = document.getElementById('datos-enviados');
+            if (datosEnviados) datosEnviados.remove();
+
+            const mensajeCancelacion = document.getElementById('mensaje-cancelacion');
+            if (mensajeCancelacion) mensajeCancelacion.remove();
         }
 
         function cancelarFormulario() {
-            // confirmación custom, sin usar confirm() nativo
+            // confirmación custom
             const overlay = document.getElementById('confirmar-cancelar');
             overlay.removeAttribute('hidden');
             overlay.classList.add('show');
@@ -309,24 +337,51 @@
             // Limpiar formulario
             limpiarFormulario();
 
-            // Mostrar mensaje de cancelación en pantalla 
-            const mensajeCancelar = document.getElementById('mensaje-cancelar');
-            mensajeCancelar.innerHTML = (nombre || apellido)
-                ? 'Formulario de <strong>' + nombre + ' ' + apellido + '</strong> cancelado. Todos los datos han sido eliminados.'
-                : 'Formulario cancelado. Todos los datos han sido eliminados.';
-            mensajeCancelar.classList.add('show');
+            // Crear mensaje de cancelación con createElement
+            const contenedorPrevio = document.getElementById('mensaje-cancelacion');
+            if (contenedorPrevio) {
+                contenedorPrevio.remove();
+            }
 
-            // Asegurar que el mensaje de éxito no quede visible
-            const mensajeExito = document.getElementById('mensaje-exito');
-            mensajeExito.classList.remove('show');
+            const contenedor = document.createElement('div');
+            contenedor.id = 'mensaje-cancelacion';
+            contenedor.className = 'mensaje-cancelacion';
+
+            // Botón de cerrar X para cerrar  el mensaje
+            const btnCerrar = document.createElement('button');
+            btnCerrar.type = 'button';
+            btnCerrar.className = 'close-mensaje';
+            btnCerrar.innerHTML = '&times;';
+            btnCerrar.addEventListener('click', () => {
+                if (contenedor.parentNode) contenedor.remove();
+            });
+            contenedor.appendChild(btnCerrar);
+
+            const titulo = document.createElement('h3');
+            if (nombre || apellido) {
+                titulo.innerHTML = 'Formulario de <strong>' + nombre + ' ' + apellido + '</strong> cancelado';
+            } else {
+                titulo.textContent = 'Formulario cancelado';
+            }
+
+            const mensaje = document.createElement('p');
+            mensaje.textContent = 'Todos los datos han sido eliminados.';
+
+            contenedor.appendChild(titulo);
+            contenedor.appendChild(mensaje);
+
+            // Insertar al final del contenedor del formulario 
+            const bloqueFormulario = document.querySelector('#formulario-contacto .formulario');
+            if (bloqueFormulario) {
+                bloqueFormulario.appendChild(contenedor);
+            } else {
+                const formulario = document.getElementById('formulario-contacto');
+                formulario.parentNode.insertBefore(contenedor, formulario);
+            }
 
             // Scroll al mensaje
-            mensajeCancelar.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            contenedor.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
-            // Ocultar automáticamente después del tiempo configurado
-            setTimeout(() => {
-                mensajeCancelar.classList.remove('show');
-            }, DURACION_MENSAJE_MS);
         }
 
         // Cierra la confirmación de cancelación
@@ -336,8 +391,7 @@
             overlay.setAttribute('hidden', '');
         }
 
-        // Inicializar validación en vivo
         setupLiveValidation();
-        // Sincronizar estado de botones al cargar (por si el navegador autocompleta)
         verificarBotonCancelar();
         verificarBotonEnviar();
+
