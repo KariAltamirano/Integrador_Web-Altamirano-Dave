@@ -66,7 +66,7 @@ function initCarousel(root, slides) {
     carousel.innerHTML = '';
     const img = document.createElement('img');
     img.id = 'carousel-image';
-    img.className = 'slide active'; // Agregar clase active desde el inicio
+    img.className = 'slide active'; 
     img.loading = 'lazy';
     carousel.appendChild(img);
 
@@ -90,7 +90,7 @@ function initCarousel(root, slides) {
     // Muestra la imagen i cambiando el src del <img>
     function show(i) {
         const s = slides[i];
-        // Actualizar src y alt (aquí se cambia la URL)
+        
         img.src = s.url;
         img.alt = s.alt || '';
 
