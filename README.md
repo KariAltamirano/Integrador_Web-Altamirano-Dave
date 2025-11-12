@@ -19,8 +19,9 @@ Proyecto integrador de desarrollo web que presenta un sitio completo para una ag
 - **Diseño responsive** adaptado a dispositivos móviles, tablets y escritorio
 - **Carrusel automático** de destinos en la página principal
 - **Formulario de contacto** con validación completa en JavaScript
-- **Modal de confirmación** personalizado para cancelación de formulario
-- **Validación en vivo** que limpia errores al vaciar campos
+- **Modal de confirmación** personalizado para cancelar el formulario
+- **Validación en vivo** que limpia errores al editar campos
+- **Mensajes dinámicos de éxito y cancelación**: se muestran como bloques pastel con botón X para cerrar manualmente
 - **Galería de destinos** con información detallada (ubicación, horarios, precios)
 - **Paleta de colores** consistente definida con variables CSS
 
@@ -30,26 +31,36 @@ Proyecto integrador de desarrollo web que presenta un sitio completo para una ag
 Integrador_Web-Altamirano-Dave/
 │
 ├── index.html                  # Página principal
-├── indexStyles.css             # Estilos de la página principal
 ├── README.md                   # Este archivo
 │
 ├── articulo/
 │   ├── articulo.html           # Página de destinos turísticos
 │   ├── articulo.css            # Estilos de destinos
+│   ├── articulo.js             # JS de destinos
 │   └── articuloImagenes/       # Imágenes de los destinos
 │
 ├── formulario/
 │   ├── formulario.html         # Página de contacto
-│   └── formulario.css          # Estilos del formulario
+│   ├── formulario.css          # Estilos del formulario
+│   └── formulario.js           # JS del formulario
 │
-└── img/                        # Recursos gráficos
-    ├── Logo/
-    ├── La Carolina/
-    ├── Merlo/
-    ├── Potrero de los Funes/
-    ├── San Luis/
-    ├── Sierra de las Quijadas/
-    └── medios de pago/
+├── index-Css-Js/
+│   ├── indexStyles.css         # Estilos de la página principal
+│   ├── carousel.js             # JS del carrusel
+│   └── img-carousel/           # Imágenes del carrusel principal
+│
+└── img/                        # Recursos gráficos generales
+  ├── Logo/
+  │   └── logo-transp.png
+  ├── medios de pago/
+  │   ├── codigo-qr.png
+  │   ├── pago-en-efectivo.png
+  │   ├── tarjeta-de-debito.png
+  │   └── transferencia-movil.png
+  ├── agente-viajes-1.jpg.webp
+  ├── travel agent 2.jpg
+  ├── colectivo-logo.png
+  ├── combi-logo.png
 ```
 
 ## Paleta de Colores
@@ -104,14 +115,17 @@ Formulario con validaciones:
 **Características del formulario:**
 - Validación del lado del cliente con JavaScript
 - Mensajes de error específicos para cada campo
-- Limpieza automática de errores al vaciar campos
+- Limpieza automática de errores al editar campos
 - Botones con estados habilitado/deshabilitado:
   - **Botón Cancelar**: Solo habilitado cuando hay datos en el formulario
   - **Botón Enviar**: Solo habilitado cuando todos los campos obligatorios tienen algún valor
   - Estados visuales diferenciados (gris deshabilitado, rojo/verde habilitado)
   - Ambos botones se deshabilitan automáticamente después de enviar o cancelar
 - Modal de confirmación personalizado para cancelar
-- Mensaje de éxito detallado al enviar
+- Mensajes dinámicos de éxito y cancelación:
+  - Se muestran como bloques (verde para éxito, rojo para cancelación)
+  - Incluyen botón X para cerrar manualmente
+  - El mensaje de cancelación usa id/class `mensaje-cancelacion` 
 
 ## Tecnologías Utilizadas
 
@@ -169,8 +183,7 @@ El sitio es completamente responsive con breakpoints en:
 ### Efectos Interactivos
 - Hover en cards de destinos
 - Transiciones suaves
-- Animaciones fadeIn para mensajes de éxito y cancelación
-- Focus states accesibles para campos activos
+- Mensajes dinámicos de éxito/cancelación sin animaciones ni auto-ocultado
 
 ## Componentes Comunes
 
@@ -196,7 +209,7 @@ Todas las páginas incluyen un footer con:
   - Email: info@serranatrips.com
   - Horarios de atención: Lunes a Sábado | 9:00 - 18:00
 - **Copyright y disclaimer legal**: © 2025 Serrana Trips | Agencia habilitada por el Ministerio de Turismo de San Luis
-- **Enlaces**: Política de Privacidad · Términos y Condiciones
+- **Enlaces**: Política de Privacidad · Términos y Condiciones (sin enlaces funcionales)
 
 ## Navegación del Sitio
 
